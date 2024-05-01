@@ -6,7 +6,84 @@ import (
 	"os"
 	"strings"
 	"testing"
+	"time"
+
+	"github.com/psanchezg/inbox-extract-data/utils"
 )
+
+func TestParseBodyTravel(t *testing.T) {
+	file, err := os.ReadFile("./test/viaje-viejo.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	distancia, starttime, err := utils.ParseBodyTravel(string(file))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if distancia != 3.82 {
+		t.Fatalf(`Parse distancia failed. distancia mustbe "3.82" not "%v"`, distancia)
+	}
+	if start, err := time.ParseDuration("10h46m0s"); err == nil {
+		if starttime != start {
+			t.Fatalf(`Parse start time failed. starttime mustbe "10h46m0s" not "%v"`, starttime)
+		}
+	}
+
+	file, err = os.ReadFile("./test/viaje-nuevo.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	distancia, starttime, err = utils.ParseBodyTravel(string(file))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if distancia != 2.44 {
+		t.Fatalf(`Parse distancia failed. distancia mustbe "2.44" not "%v"`, distancia)
+	}
+	if start, err := time.ParseDuration("15h25m0s"); err == nil {
+		if starttime != start {
+			t.Fatalf(`Parse start time failed. starttime mustbe "15h25m0s" not "%v"`, starttime)
+		}
+	}
+}
+
+func TestParseBodyPlan(t *testing.T) {
+	file, err := os.ReadFile("./test/contratar-plan-20mes.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	plan, err := utils.ParseBodyPlan(string(file))
+	if err != nil {
+		log.Fatal(err)
+	}
+	inicio := plan.Inicio.Format("02/01/2006 03:04")
+	if inicio != "13/04/2024 10:43" {
+		t.Fatalf(`Inicio plan failed. Inicio mustbe "13/04/2024 10:43" not "%v"`, inicio)
+	}
+	fin := plan.Fin.Format("02/01/2006 03:04")
+	if fin != "13/05/2024 10:43" {
+		t.Fatalf(`Fin plan failed. Fin mustbe "13/04/2024 10:43" not "%v"`, fin)
+	}
+	if plan.MinutosDia != 20 {
+		t.Fatalf(`MinutosDia plan failed. MinutosDia mustbe 20 not "%v"`, plan.MinutosDia)
+	}
+	if plan.Minutos != 20*30 {
+		t.Fatalf(`Minutos plan failed. Minutos mustbe 600 not "%v"`, plan.Minutos)
+	}
+	if plan.Duracion != 30 {
+		t.Fatalf(`Duracion plan failed. Duracion mustbe 30 not "%v"`, plan.Duracion)
+	}
+	if plan.Total != 30 {
+		t.Fatalf(`Total plan failed. Duracion mustbe "30"€ not "%v"€`, plan.Total)
+	}
+
+	if plan, err := utils.ParseBodyPlan(""); err == nil && plan.Inicio.IsZero() {
+		log.Fatal("Must return error when no plan body selected")
+	}
+}
 
 func TestParseLines(t *testing.T) {
 
@@ -23,9 +100,9 @@ func TestParseLines(t *testing.T) {
 	// optionally, resize scanner's capacity for lines over 64K, see next example
 	for scanner.Scan() {
 		snippets := strings.Split(scanner.Text(), "|||")
-		params := getParams(rx, snippets[0])
+		params := utils.GetParams(rx, snippets[0])
 		if params["Fecha"] == "" {
-			params = getParams(rx2, snippets[0])
+			params = utils.GetParams(rx2, snippets[0])
 		}
 		// Tests
 		if params["Fecha"] != snippets[1] {

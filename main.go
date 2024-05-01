@@ -2,99 +2,62 @@ package main
 
 import (
 	"context"
+	"encoding/base64"
 	"fmt"
 	"math"
-	"regexp"
-	"strconv"
+	"os"
+	"sort"
 	"time"
 
 	"github.com/psanchezg/inbox-extract-data/interfaces"
+	"github.com/psanchezg/inbox-extract-data/utils"
 	"gitlab.com/hartsfield/gmailAPI"
 	"gitlab.com/hartsfield/inboxer"
 	gmail "google.golang.org/api/gmail/v1"
 )
 
-/**
- * Parses url with the given regular expression and returns the
- * group values defined in the expression.
- *
- */
-func getParams(regEx, url string) (paramsMap map[string]string) {
+var (
+	// destinationDir is the path to the directory where the attachments will be saved.
+	afterDate = os.Getenv("AFTER_DATE")
+)
 
-	var compRegEx = regexp.MustCompile(regEx)
-	match := compRegEx.FindStringSubmatch(url)
+func writeFile(msg *gmail.Message) {
+	time, err := inboxer.ReceivedTime(msg.InternalDate)
+	if err != nil {
+		fmt.Println(err)
+	}
+	f, err := os.Create(fmt.Sprintf("./dump/%s-%s.txt", time.Format("2006-02-01"), msg.Id))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	decoded, err := base64.URLEncoding.DecodeString(msg.Payload.Body.Data)
+	if err != nil {
+		fmt.Println(err)
+		return
 
-	paramsMap = make(map[string]string)
-	for i, name := range compRegEx.SubexpNames() {
-		if i > 0 && i <= len(match) {
-			paramsMap[name] = match[i]
-		}
 	}
-	return paramsMap
-}
-
-func createBoltReceipt(params map[string]string, raw string) interfaces.BoltReceipt {
-	receipt := interfaces.BoltReceipt{
-		//Fecha: params["Fecha"],
-		Snippet: raw,
+	if _, err := f.WriteString(string(decoded)); err != nil {
+		fmt.Println(err)
+		f.Close()
+		return
 	}
-	// Convert date
-	l := "02/01/2006"
-	tt, err := time.Parse(l, params["Fecha"])
-	if err == nil {
-		receipt.Fecha = tt
-	} else {
-		fmt.Println("error", params["Fecha"], err, raw)
+	err = f.Close()
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
-	// Convert values to float
-	if total, err := strconv.ParseFloat(params["Total"], 64); err == nil {
-		receipt.Total = total
-	}
-	if params["Cobrado"] != "" {
-		if total, err := strconv.ParseFloat(params["Cobrado"], 64); err == nil {
-			receipt.Total = total
-		}
-	}
-	if subtotal, err := strconv.ParseFloat(params["Subtotal"], 64); err == nil {
-		receipt.Subtotal = subtotal
-	}
-	if descuento, err := strconv.ParseFloat(params["Descuento"], 64); err == nil {
-		receipt.Descuento = descuento
-	}
-	if desbloquear, err := strconv.ParseFloat(params["Desbloquear"], 64); err == nil {
-		receipt.Desbloquear = desbloquear
-	}
-	// Convert time to seconds
-
-	if params["Seg"] == "" && params["Min"] == "" {
-		if params["Cobrado"] == "0.00" || params["Subtotal"] == "0.00" {
-			// El máximo
-			var segundos int32 = 20 * 60
-			receipt.Duracion = int32(segundos)
-		} else {
-			fmt.Println("error", params)
-			receipt.Duracion = 0
-		}
-	} else {
-		var segundos int32 = 0
-		if min, err := strconv.ParseFloat(params["Min"], 64); err == nil {
-			segundos = int32(math.Round(min * 60))
-		}
-		if seg, err := strconv.ParseFloat(params["Seg"], 64); err == nil {
-			segundos = segundos + int32(seg)
-		}
-		receipt.Duracion = int32(segundos)
-	}
-
-	return receipt
 }
 
 func extractMails() {
 	// Connect to the gmail API service.
 	ctx := context.Background()
-	srv := gmailAPI.ConnectToService(ctx, gmail.MailGoogleComScope)
+	srv := gmailAPI.ConnectToService(ctx, gmail.GmailReadonlyScope)
 
-	msgs, err := inboxer.Query(srv, "from:receipts@bolt.eu after:2024/01/01")
+	if afterDate == "" {
+		afterDate = "2024/01/01"
+	}
+	msgs, err := inboxer.Query(srv, fmt.Sprintf("from:receipts@bolt.eu after:%s", afterDate))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -103,28 +66,88 @@ func extractMails() {
 	totalPagado := 0.0
 	totalServicio := 0.0
 	totalTiempo := 0
+	totalDistancia := 0.0
 	receipts := []interfaces.BoltReceipt{}
+	plan := interfaces.BoltPlan{
+		Total:      30.0,
+		Minutos:    20 * 30,
+		MinutosDia: 20,
+		Duracion:   30,
+	}
 	rx := `.*(?P<Fecha>\d{2}\/\d{2}\/\d{4}) .*Total (?P<Total>[0-9\.]+)€ .*Desbloquear (?P<Desbloquear>[0-9\.]+)€ .* (?P<Min>[0-9]+) min(?: (?P<Seg>[0-9]+) s)? .*Subtotal (?P<Subtotal>[0-9\.]+)€(?: .*Descuento (?P<Descuento>[0-9\.\-]+)€)?`
 	rx2 := `.*(?P<Fecha>\d{2}\/\d{2}\/\d{4}) .*Total (?P<Total>[0-9\.]+)€ .*Desbloquear (?P<Desbloquear>[0-9\.]+)€ .*(?: (?P<Min>[0-9]+) min(?: (?P<Seg>[0-9]+) s)?)? .*Subtotal (?P<Subtotal>[0-9\.]+)€(?: Importe total cobrado (?P<Cobrado>[0-9\.]+)€)?`
 
+	sort.Slice(msgs, func(a, b int) bool {
+		timea, err := inboxer.ReceivedTime(msgs[a].InternalDate)
+		if err != nil {
+			return true
+		}
+		timeb, err := inboxer.ReceivedTime(msgs[b].InternalDate)
+		if err != nil {
+			return false
+		}
+		return timea.Before(timeb)
+	})
+
 	// Range over the messages
 	for _, msg := range msgs {
-		params := getParams(rx, msg.Snippet)
+		decoded, errbody := base64.URLEncoding.DecodeString(msg.Payload.Body.Data)
+		params := utils.GetParams(rx, msg.Snippet)
 		if params["Fecha"] == "" {
-			params = getParams(rx2, msg.Snippet)
+			params = utils.GetParams(rx2, msg.Snippet)
 		}
 		if params["Fecha"] != "" {
-			receipt := createBoltReceipt(params, msg.Snippet)
-			if firstMessage.IsZero() || firstMessage.After(receipt.Fecha) {
-				firstMessage = receipt.Fecha
+			receipt := utils.CreateBoltReceipt(params, msg.Snippet)
+			if errbody == nil {
+				if distancia, starttime, err := utils.ParseBodyTravel(string(decoded)); err == nil {
+					receipt.Distancia = distancia
+					if !receipt.Fecha.IsZero() {
+						receipt.Fecha = receipt.Fecha.Add(starttime)
+					}
+				}
 			}
-			totalPagado += receipt.Total
-			totalServicio += receipt.Subtotal
-			// fmt.Println("tiempo", receipt.Duracion, totalTiempo)
-			totalTiempo += int(receipt.Duracion)
-			receipts = append(receipts, receipt)
+			if !plan.Inicio.IsZero() && plan.Inicio.Before(receipt.Fecha) && plan.Fin.After(receipt.Fecha) {
+				receipts = append(receipts, receipt)
+				if firstMessage.IsZero() || firstMessage.After(receipt.Fecha) {
+					firstMessage = receipt.Fecha
+				}
+				totalPagado += receipt.Total
+				totalServicio += receipt.Subtotal
+				// fmt.Println("tiempo", receipt.Duracion, totalTiempo)
+				totalTiempo += int(receipt.Duracion)
+				totalDistancia += receipt.Distancia
+			} else {
+				fmt.Println("Viaje fuera de fecha: ", receipt.Fecha.Format("02/01/2006"))
+			}
 			// fmt.Println("t", receipt.Subtotal, receipt.Total, receipt.Duracion)
+		} else {
+			// Test parse plan
+			fmt.Println("Test parse plan")
+			if errbody == nil {
+				if detectplan, err := utils.ParseBodyPlan(string(decoded)); err == nil {
+					plan = detectplan
+					fmt.Printf("Plan encontrado el %v\n", plan.Inicio.Format("02/01/2006 03:04"))
+				}
+			}
 		}
+		// writeFile(msg)
+
+		// for _, v := range msg.Payload.Body.Data {
+		// 	fmt.Println(v)
+		// }
+		// body, err := inboxer.GetBody(msg, "text/plain")
+		// if err != nil {
+		// 	fmt.Println(err)
+		// } else {
+		// 	fmt.Println(body)
+		// }
+		// body, err = inboxer.GetBody(msg, "text/html")
+		// if err != nil {
+		// 	fmt.Println(err)
+		// } else {
+		// 	fmt.Println(body)
+		// }
+
 		// fmt.Println("========================================================")
 		// time, err := inboxer.ReceivedTime(msg.InternalDate)
 		// if err != nil {
@@ -153,22 +176,29 @@ func extractMails() {
 
 	// fmt.Println("receipts", receipts)
 	// Bono 30 días, 20 minutos al día = 30€
-	costeBono := 30.0
+	fmt.Println(plan)
 	fmt.Println("========================================================")
-	fmt.Printf("Primer viaje detectado: %v\n", firstMessage.Format("02-01-2006"))
+	if !plan.Inicio.IsZero() {
+		fmt.Printf("Plan activo de %v a %v\n", plan.Inicio.Format("02/01/2006 03:04"), plan.Fin.Format("02/01/2006 03:04"))
+		fmt.Printf("Dias del bono: %v\n", plan.Duracion)
+		fmt.Printf("Minutos totales del bono: %v\n", plan.Minutos)
+		fmt.Println("========================================================")
+	}
+	fmt.Printf("Primer viaje detectado: %v\n", firstMessage.Format("02-01-2006 03:04"))
 	diff := time.Now().Sub(firstMessage)
-	diasUsados := int(diff.Hours() / 24)
-	fmt.Printf("Dias restantes del bono: %v\n", 30-diasUsados)
+	diasUsados := int64(diff.Hours() / 24)
+	fmt.Printf("Dias restantes del bono: %v\n", plan.Duracion-diasUsados)
 	fmt.Printf("Número de viajes realizados: %v\n", len(receipts))
 	minutos := math.Round(float64(totalTiempo) / 60.0)
 	fmt.Printf("Tiempo total: %v minutos\n", minutos)
-	fmt.Printf("Tiempo adicionales al bono para días usado: %v minutos\n", minutos-(float64(diasUsados)*20))
+	fmt.Printf("Distancia total: %v kms\n", math.Round(totalDistancia*100)/100)
+	fmt.Printf("Tiempo adicional usado (fuera bono): %v minutos\n", minutos-(float64(diasUsados)*float64(plan.MinutosDia)))
 	fmt.Printf("Coste total del servicio (sin bono): %v €\n", math.Round(totalServicio*100)/100)
-	fmt.Printf("Total pagado (sin bono): %v €\n", totalPagado)
-	fmt.Printf("Total pagado adicional al bono: %v €\n", math.Round((totalServicio-totalPagado)*100)/100)
-	fmt.Printf("Total pagado (incluyendo bono): %v €\n", totalPagado+costeBono)
-	fmt.Printf("Coste por minuto real (incluyendo bono): %v €\n", math.Round((totalPagado+costeBono)*100/minutos)/100)
-	fmt.Printf("Coste por día (incluyendo bono): %v €\n", math.Round((totalPagado+costeBono)/float64(diasUsados)*100)/100)
+	fmt.Printf("Pagado adicional al bono: %v €\n", math.Round(totalPagado*100)/100)
+	fmt.Printf("Total incluído en el bono: %v €\n", math.Round((totalServicio-totalPagado)*100)/100)
+	fmt.Printf("Total pagado (incluyendo bono): %v €\n", math.Round((totalPagado+plan.Total)*100)/100)
+	fmt.Printf("Coste por minuto real (incluyendo bono): %v €\n", math.Round((totalPagado+plan.Total)*100/minutos)/100)
+	fmt.Printf("Coste por día (incluyendo bono): %v €\n", math.Round((totalPagado+plan.Total)/float64(diasUsados)*100)/100)
 	fmt.Println("========================================================")
 }
 

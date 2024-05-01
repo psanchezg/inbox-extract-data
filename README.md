@@ -26,10 +26,10 @@ App "inbox-extract-data" is a Go app to check a GMail inbox to analize Bolt e-sc
 
 **TODO:**
 
-  - Add Bolt plans options
-  - Check bolt plans in inbox
-  - Add more statics
-  - Test data
+  - Add more statistics
+  - Get plans and travels over time
+  - Add historical statistics
+  - More test data
 
 #  USE
 ## CREDENTIALS:
