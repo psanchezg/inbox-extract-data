@@ -21,33 +21,33 @@ var (
 	afterDate = os.Getenv("AFTER_DATE")
 )
 
-func writeFile(msg *gmail.Message) {
-	time, err := inboxer.ReceivedTime(msg.InternalDate)
-	if err != nil {
-		fmt.Println(err)
-	}
-	f, err := os.Create(fmt.Sprintf("./dump/%s-%s.txt", time.Format("2006-02-01"), msg.Id))
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	decoded, err := base64.URLEncoding.DecodeString(msg.Payload.Body.Data)
-	if err != nil {
-		fmt.Println(err)
-		return
+// func writeFile(msg *gmail.Message) {
+// 	time, err := inboxer.ReceivedTime(msg.InternalDate)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
+// 	f, err := os.Create(fmt.Sprintf("./dump/%s-%s.txt", time.Format("2006-02-01"), msg.Id))
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		return
+// 	}
+// 	decoded, err := base64.URLEncoding.DecodeString(msg.Payload.Body.Data)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		return
 
-	}
-	if _, err := f.WriteString(string(decoded)); err != nil {
-		fmt.Println(err)
-		f.Close()
-		return
-	}
-	err = f.Close()
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-}
+// 	}
+// 	if _, err := f.WriteString(string(decoded)); err != nil {
+// 		fmt.Println(err)
+// 		f.Close()
+// 		return
+// 	}
+// 	err = f.Close()
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		return
+// 	}
+// }
 
 func extractMails() {
 	// Connect to the gmail API service.
@@ -68,6 +68,7 @@ func extractMails() {
 	totalTiempo := 0
 	totalDistancia := 0.0
 	receipts := []interfaces.BoltReceipt{}
+	otherreceipts := []interfaces.BoltReceipt{}
 	plan := interfaces.BoltPlan{
 		Total:      30.0,
 		Minutos:    20 * 30,
@@ -117,12 +118,12 @@ func extractMails() {
 				totalTiempo += int(receipt.Duracion)
 				totalDistancia += receipt.Distancia
 			} else {
-				fmt.Println("Viaje fuera de fecha: ", receipt.Fecha.Format("02/01/2006"))
+				// fmt.Println("Viaje fuera de plan: ", receipt.Fecha.Format("02/01/2006"))
+				otherreceipts = append(otherreceipts, receipt)
 			}
 			// fmt.Println("t", receipt.Subtotal, receipt.Total, receipt.Duracion)
 		} else {
 			// Test parse plan
-			fmt.Println("Test parse plan")
 			if errbody == nil {
 				if detectplan, err := utils.ParseBodyPlan(string(decoded)); err == nil {
 					plan = detectplan
@@ -176,7 +177,6 @@ func extractMails() {
 
 	// fmt.Println("receipts", receipts)
 	// Bono 30 días, 20 minutos al día = 30€
-	fmt.Println(plan)
 	fmt.Println("========================================================")
 	if !plan.Inicio.IsZero() {
 		fmt.Printf("Plan activo de %v a %v\n", plan.Inicio.Format("02/01/2006 03:04"), plan.Fin.Format("02/01/2006 03:04"))
@@ -185,7 +185,7 @@ func extractMails() {
 		fmt.Println("========================================================")
 	}
 	fmt.Printf("Primer viaje detectado: %v\n", firstMessage.Format("02-01-2006 03:04"))
-	diff := time.Now().Sub(firstMessage)
+	diff := time.Since(firstMessage)
 	diasUsados := int64(diff.Hours() / 24)
 	fmt.Printf("Dias restantes del bono: %v\n", plan.Duracion-diasUsados)
 	fmt.Printf("Número de viajes realizados: %v\n", len(receipts))
@@ -200,6 +200,9 @@ func extractMails() {
 	fmt.Printf("Coste por minuto real (incluyendo bono): %v €\n", math.Round((totalPagado+plan.Total)*100/minutos)/100)
 	fmt.Printf("Coste por día (incluyendo bono): %v €\n", math.Round((totalPagado+plan.Total)/float64(diasUsados)*100)/100)
 	fmt.Println("========================================================")
+	fmt.Printf("Otros viajes desde %v: %v\n", afterDate, len(otherreceipts))
+	fmt.Println("========================================================")
+
 }
 
 func main() {
