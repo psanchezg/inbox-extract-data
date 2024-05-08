@@ -199,6 +199,7 @@ func extractMails() {
 	fmt.Printf("Total pagado (incluyendo bono): %v €\n", math.Round((totalPagado+plan.Total)*100)/100)
 	fmt.Printf("Coste por minuto real (incluyendo bono): %v €\n", math.Round((totalPagado+plan.Total)*100/minutos)/100)
 	fmt.Printf("Coste por día (incluyendo bono): %v €\n", math.Round((totalPagado+plan.Total)/float64(diasUsados)*100)/100)
+	fmt.Printf("Coste por km (incluyendo bono): %v €\n", math.Round((totalPagado+plan.Total)*100/totalDistancia)/100)
 	fmt.Println("========================================================")
 	fmt.Printf("Otros viajes desde %v: %v\n", afterDate, len(otherreceipts))
 	fmt.Println("========================================================")
