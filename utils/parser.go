@@ -112,7 +112,8 @@ func ParseBodyTravel(body string) (float64, time.Duration, error) {
 func ParseBodyPlan(body string) (interfaces.BoltPlan, error) {
 
 	plan := interfaces.BoltPlan{
-		Duracion: 0,
+		Duracion:  0,
+		Purchased: true,
 		Uso: interfaces.BoltUsePlan{
 			Tiempo:    0,
 			Distancia: 0,
@@ -181,18 +182,29 @@ func ParseBodyPlan(body string) (interfaces.BoltPlan, error) {
 }
 
 func GetCurrentPlanIdxForDate(plans []interfaces.BoltPlan, searchDate time.Time) int {
+	defaultPlanIdx := -1
 	for i, p := range plans {
 		if searchDate.After(p.Inicio) && searchDate.Before(p.Fin) {
-			return i
+			if p.Purchased {
+				return i
+			} else {
+				defaultPlanIdx = i
+			}
 		}
+	}
+	if defaultPlanIdx > -1 {
+		return defaultPlanIdx
 	}
 	return -1
 }
 
-func ParseAndFormatDate(afterDate string) string {
+func ParseAndFormatDate(afterDate string, format string) string {
 	parsedAfterDate, err := time.Parse("2006/01/02", afterDate)
 	if err == nil {
-		return parsedAfterDate.Format("02-01-2006")
+		if format == "" {
+			format = "02-01-2006"
+		}
+		return parsedAfterDate.Format(format)
 	}
 	return afterDate
 }

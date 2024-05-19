@@ -59,11 +59,11 @@ func TestParseBodyPlan(t *testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	inicio := plan.Inicio.Format("02/01/2006 03:04")
+	inicio := plan.Inicio.Format("02/01/2006 15:04")
 	if inicio != "13/04/2024 10:43" {
 		t.Fatalf(`Inicio plan failed. Inicio mustbe "13/04/2024 10:43" not "%v"`, inicio)
 	}
-	fin := plan.Fin.Format("02/01/2006 03:04")
+	fin := plan.Fin.Format("02/01/2006 15:04")
 	if fin != "13/05/2024 10:43" {
 		t.Fatalf(`Fin plan failed. Fin mustbe "13/05/2024 10:43" not "%v"`, fin)
 	}
@@ -95,11 +95,11 @@ func TestParseBodyPlan2(t *testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	inicio := plan.Inicio.Format("02/01/2006 03:04")
+	inicio := plan.Inicio.Format("02/01/2006 15:04")
 	if inicio != "15/05/2024 09:16" {
 		t.Fatalf(`Inicio plan failed. Inicio mustbe "15/05/2024 09:16" not "%v"`, inicio)
 	}
-	fin := plan.Fin.Format("02/01/2006 03:04")
+	fin := plan.Fin.Format("02/01/2006 15:04")
 	if fin != "14/06/2024 09:16" {
 		t.Fatalf(`Fin plan failed. Fin mustbe "14/06/2024 09:16" not "%v"`, fin)
 	}

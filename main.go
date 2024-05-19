@@ -66,10 +66,11 @@ func extractMails() {
 	otherreceipts := []interfaces.BoltReceipt{}
 	planes := []interfaces.BoltPlan{}
 	plan := interfaces.BoltPlan{
-		Total:      30.0,
-		Minutos:    20 * 30,
-		MinutosDia: 20,
-		Duracion:   30,
+		Total:      0.0,
+		Minutos:    0,
+		MinutosDia: 0,
+		Duracion:   0,
+		Purchased:  false,
 		Uso: interfaces.BoltUsePlan{
 			Tiempo:    0,
 			Distancia: 0,
@@ -77,6 +78,15 @@ func extractMails() {
 			Servicio:  0,
 		},
 	}
+	parsedAfterDate, err := time.Parse("2006/01/02", afterDate)
+	if err == nil {
+		plan.Inicio = parsedAfterDate
+		plan.Fin = time.Now()
+		diferencia := plan.Fin.Sub(plan.Inicio)
+		plan.Duracion = int64(diferencia.Hours() / 24)
+		planes = append(planes, plan)
+	}
+
 	rx := `.*(?P<Fecha>\d{2}\/\d{2}\/\d{4}) .*Total (?P<Total>[0-9\.]+)€ .*Desbloquear (?P<Desbloquear>[0-9\.]+)€ .* (?P<Min>[0-9]+) min(?: (?P<Seg>[0-9]+) s)? .*Subtotal (?P<Subtotal>[0-9\.]+)€(?: .*Descuento (?P<Descuento>[0-9\.\-]+)€)?`
 	rx2 := `.*(?P<Fecha>\d{2}\/\d{2}\/\d{4}) .*Total (?P<Total>[0-9\.]+)€ .*Desbloquear (?P<Desbloquear>[0-9\.]+)€ .*(?: (?P<Min>[0-9]+) min(?: (?P<Seg>[0-9]+) s)?)? .*Subtotal (?P<Subtotal>[0-9\.]+)€(?: Importe total cobrado (?P<Cobrado>[0-9\.]+)€)?`
 
@@ -133,7 +143,7 @@ func extractMails() {
 			if errbody == nil {
 				if detectplan, err := utils.ParseBodyPlan(string(decoded)); err == nil {
 					plan = detectplan
-					fmt.Printf("Plan encontrado el %v\n", plan.Inicio.Format("02/01/2006 03:04"))
+					fmt.Printf("Plan encontrado el %v\n", plan.Inicio.Format("02/01/2006 15:04"))
 					planes = append(planes, plan)
 				}
 			}
@@ -143,12 +153,9 @@ func extractMails() {
 
 	// fmt.Println("receipts", receipts)
 	// Bono 30 días, 20 minutos al día = 30€
-	fmt.Printf("Primer viaje detectado: %v\n", firstMessage.Format("02-01-2006 03:04"))
+	fmt.Printf("Primer viaje detectado: %v\n", firstMessage.Format("02-01-2006 15:04"))
 	fmt.Printf("Total número de viajes realizados: %v\n", len(receipts))
 	utils.IterateAndPrintBoltPlans(planes)
-	formatedAfterDate := utils.ParseAndFormatDate(afterDate)
-	fmt.Println("========================================================")
-	fmt.Printf("Otros viajes desde %v: %v\n", formatedAfterDate, len(otherreceipts))
 	fmt.Println("========================================================")
 }
 

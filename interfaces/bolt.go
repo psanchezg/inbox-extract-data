@@ -28,5 +28,6 @@ type BoltPlan struct {
 	Minutos    int64       `json:"minutos"`
 	MinutosDia int64       `json:"minutos_dia"`
 	Total      float64     `json:"total"`
+	Purchased  bool        `json:"purchased"`
 	Uso        BoltUsePlan `json:"uso"`
 }
