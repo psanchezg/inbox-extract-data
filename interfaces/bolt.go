@@ -13,11 +13,20 @@ type BoltReceipt struct {
 	Snippet     string    `json:"snippet"`
 }
 
+type BoltUsePlan struct {
+	Pagado      float64   `json:"pagado"`
+	Servicio    float64   `json:"servicio"`
+	Tiempo      int64     `json:"tiempo"`
+	Distancia   float64   `json:"distancia"`
+	PrimerViaje time.Time `json:"primer_viaje"`
+}
+
 type BoltPlan struct {
-	Inicio     time.Time `json:"inicio"`
-	Fin        time.Time `json:"fin"`
-	Duracion   int64     `json:"duracion"`
-	Minutos    int64     `json:"minutos"`
-	MinutosDia int64     `json:"minutos_dia"`
-	Total      float64   `json:"total"`
+	Inicio     time.Time   `json:"inicio"`
+	Fin        time.Time   `json:"fin"`
+	Duracion   int64       `json:"duracion"`
+	Minutos    int64       `json:"minutos"`
+	MinutosDia int64       `json:"minutos_dia"`
+	Total      float64     `json:"total"`
+	Uso        BoltUsePlan `json:"uso"`
 }

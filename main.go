@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/base64"
 	"fmt"
-	"math"
 	"os"
 	"sort"
 	"time"
@@ -63,17 +62,20 @@ func extractMails() {
 	}
 
 	var firstMessage time.Time
-	totalPagado := 0.0
-	totalServicio := 0.0
-	totalTiempo := 0
-	totalDistancia := 0.0
 	receipts := []interfaces.BoltReceipt{}
 	otherreceipts := []interfaces.BoltReceipt{}
+	planes := []interfaces.BoltPlan{}
 	plan := interfaces.BoltPlan{
 		Total:      30.0,
 		Minutos:    20 * 30,
 		MinutosDia: 20,
 		Duracion:   30,
+		Uso: interfaces.BoltUsePlan{
+			Tiempo:    0,
+			Distancia: 0,
+			Pagado:    0,
+			Servicio:  0,
+		},
 	}
 	rx := `.*(?P<Fecha>\d{2}\/\d{2}\/\d{4}) .*Total (?P<Total>[0-9\.]+)€ .*Desbloquear (?P<Desbloquear>[0-9\.]+)€ .* (?P<Min>[0-9]+) min(?: (?P<Seg>[0-9]+) s)? .*Subtotal (?P<Subtotal>[0-9\.]+)€(?: .*Descuento (?P<Descuento>[0-9\.\-]+)€)?`
 	rx2 := `.*(?P<Fecha>\d{2}\/\d{2}\/\d{4}) .*Total (?P<Total>[0-9\.]+)€ .*Desbloquear (?P<Desbloquear>[0-9\.]+)€ .*(?: (?P<Min>[0-9]+) min(?: (?P<Seg>[0-9]+) s)?)? .*Subtotal (?P<Subtotal>[0-9\.]+)€(?: Importe total cobrado (?P<Cobrado>[0-9\.]+)€)?`
@@ -107,16 +109,20 @@ func extractMails() {
 					}
 				}
 			}
-			if !plan.Inicio.IsZero() && plan.Inicio.Before(receipt.Fecha) && plan.Fin.After(receipt.Fecha) {
+			if !receipt.Fecha.IsZero() && (firstMessage.IsZero() || firstMessage.After(receipt.Fecha)) {
+				firstMessage = receipt.Fecha
+			}
+			currentPlanIdx := utils.GetCurrentPlanIdxForDate(planes, receipt.Fecha)
+			if currentPlanIdx > -1 {
 				receipts = append(receipts, receipt)
-				if firstMessage.IsZero() || firstMessage.After(receipt.Fecha) {
-					firstMessage = receipt.Fecha
+				planes[currentPlanIdx].Uso.Pagado += receipt.Total
+				planes[currentPlanIdx].Uso.Servicio += receipt.Subtotal
+				planes[currentPlanIdx].Uso.Tiempo += int64(receipt.Duracion)
+				planes[currentPlanIdx].Uso.Distancia += receipt.Distancia
+				first := planes[currentPlanIdx].Uso.PrimerViaje
+				if !receipt.Fecha.IsZero() && (first.IsZero() || first.After(receipt.Fecha)) {
+					planes[currentPlanIdx].Uso.PrimerViaje = receipt.Fecha
 				}
-				totalPagado += receipt.Total
-				totalServicio += receipt.Subtotal
-				// fmt.Println("tiempo", receipt.Duracion, totalTiempo)
-				totalTiempo += int(receipt.Duracion)
-				totalDistancia += receipt.Distancia
 			} else {
 				// fmt.Println("Viaje fuera de plan: ", receipt.Fecha.Format("02/01/2006"))
 				otherreceipts = append(otherreceipts, receipt)
@@ -128,82 +134,22 @@ func extractMails() {
 				if detectplan, err := utils.ParseBodyPlan(string(decoded)); err == nil {
 					plan = detectplan
 					fmt.Printf("Plan encontrado el %v\n", plan.Inicio.Format("02/01/2006 03:04"))
+					planes = append(planes, plan)
 				}
 			}
 		}
 		// writeFile(msg)
-
-		// for _, v := range msg.Payload.Body.Data {
-		// 	fmt.Println(v)
-		// }
-		// body, err := inboxer.GetBody(msg, "text/plain")
-		// if err != nil {
-		// 	fmt.Println(err)
-		// } else {
-		// 	fmt.Println(body)
-		// }
-		// body, err = inboxer.GetBody(msg, "text/html")
-		// if err != nil {
-		// 	fmt.Println(err)
-		// } else {
-		// 	fmt.Println(body)
-		// }
-
-		// fmt.Println("========================================================")
-		// time, err := inboxer.ReceivedTime(msg.InternalDate)
-		// if err != nil {
-		// 	fmt.Println(err)
-		// }
-		// fmt.Println("Date: ", time)
-		// if firstMessage.IsZero() || firstMessage.After(time) {
-		// 	firstMessage = time
-		// }
-		// md := inboxer.GetPartialMetadata(msg)
-		// fmt.Println("From: ", md.From)
-		// fmt.Println("Sender: ", md.Sender)
-		// fmt.Println("Subject: ", md.Subject)
-		// fmt.Println("Delivered To: ", md.DeliveredTo)
-		// fmt.Println("To: ", md.To)
-		// fmt.Println("CC: ", md.CC)
-		// fmt.Println("Mailing List: ", md.MailingList)
-		// fmt.Println("Thread-Topic: ", md.ThreadTopic)
-		// fmt.Println("Snippet: ", msg.Snippet)
-		// body, err := inboxer.GetBody(msg, "text/plain")
-		// if err != nil {
-		// 	fmt.Println(err)
-		// }
-		// fmt.Println(body)
 	}
 
 	// fmt.Println("receipts", receipts)
 	// Bono 30 días, 20 minutos al día = 30€
-	fmt.Println("========================================================")
-	if !plan.Inicio.IsZero() {
-		fmt.Printf("Plan activo de %v a %v\n", plan.Inicio.Format("02/01/2006 03:04"), plan.Fin.Format("02/01/2006 03:04"))
-		fmt.Printf("Dias del bono: %v\n", plan.Duracion)
-		fmt.Printf("Minutos totales del bono: %v\n", plan.Minutos)
-		fmt.Println("========================================================")
-	}
 	fmt.Printf("Primer viaje detectado: %v\n", firstMessage.Format("02-01-2006 03:04"))
-	diff := time.Since(firstMessage)
-	diasUsados := int64(diff.Hours() / 24)
-	fmt.Printf("Dias restantes del bono: %v\n", plan.Duracion-diasUsados)
-	fmt.Printf("Número de viajes realizados: %v\n", len(receipts))
-	minutos := math.Round(float64(totalTiempo) / 60.0)
-	fmt.Printf("Tiempo total: %v minutos\n", minutos)
-	fmt.Printf("Distancia total: %v kms\n", math.Round(totalDistancia*100)/100)
-	fmt.Printf("Tiempo adicional usado (fuera bono): %v minutos\n", minutos-(float64(diasUsados)*float64(plan.MinutosDia)))
-	fmt.Printf("Coste total del servicio (sin bono): %v €\n", math.Round(totalServicio*100)/100)
-	fmt.Printf("Pagado adicional al bono: %v €\n", math.Round(totalPagado*100)/100)
-	fmt.Printf("Total incluído en el bono: %v €\n", math.Round((totalServicio-totalPagado)*100)/100)
-	fmt.Printf("Total pagado (incluyendo bono): %v €\n", math.Round((totalPagado+plan.Total)*100)/100)
-	fmt.Printf("Coste por minuto real (incluyendo bono): %v €\n", math.Round((totalPagado+plan.Total)*100/minutos)/100)
-	fmt.Printf("Coste por día (incluyendo bono): %v €\n", math.Round((totalPagado+plan.Total)/float64(diasUsados)*100)/100)
-	fmt.Printf("Coste por km (incluyendo bono): %v €\n", math.Round((totalPagado+plan.Total)*100/totalDistancia)/100)
+	fmt.Printf("Total número de viajes realizados: %v\n", len(receipts))
+	utils.IterateAndPrintBoltPlans(planes)
+	formatedAfterDate := utils.ParseAndFormatDate(afterDate)
 	fmt.Println("========================================================")
-	fmt.Printf("Otros viajes desde %v: %v\n", afterDate, len(otherreceipts))
+	fmt.Printf("Otros viajes desde %v: %v\n", formatedAfterDate, len(otherreceipts))
 	fmt.Println("========================================================")
-
 }
 
 func main() {

@@ -113,11 +113,17 @@ func ParseBodyPlan(body string) (interfaces.BoltPlan, error) {
 
 	plan := interfaces.BoltPlan{
 		Duracion: 0,
+		Uso: interfaces.BoltUsePlan{
+			Tiempo:    0,
+			Distancia: 0,
+			Pagado:    0,
+			Servicio:  0,
+		},
 	}
 	rxdetails := `.*<span class="bodyLarge color-contentPrimary".*>(?P<Detalles>.*)<\/span>`
 	var compRegEx = regexp.MustCompile(rxdetails)
 	matches := compRegEx.FindAllStringSubmatch(body, -1)
-	rxdate := `(?P<Fecha>[0-9]{1,2} (January|February|March|April|May) 20[0-9]{2}), (?P<Hora>[0-9]{2}:[0-9]{2}).*`
+	rxdate := `(?P<Fecha>[0-9]{1,2} (January|February|March|April|May|June|July|Agoust|September|October|November|December) 20[0-9]{2}), (?P<Hora>[0-9]{2}:[0-9]{2}).*`
 	rxplan := `(?P<Minutos>[0-9]{1,3}) min al día durante (?P<Duracion>[0-9]+ (mes|días))`
 	rxtotal := `(?P<Total>[0-9]+\.[0-9]*)€`
 	var inicio time.Time
@@ -172,4 +178,21 @@ func ParseBodyPlan(body string) (interfaces.BoltPlan, error) {
 	plan.Inicio = inicio
 	plan.Fin = fin
 	return plan, nil
+}
+
+func GetCurrentPlanIdxForDate(plans []interfaces.BoltPlan, searchDate time.Time) int {
+	for i, p := range plans {
+		if searchDate.After(p.Inicio) && searchDate.Before(p.Fin) {
+			return i
+		}
+	}
+	return -1
+}
+
+func ParseAndFormatDate(afterDate string) string {
+	parsedAfterDate, err := time.Parse("2006/01/02", afterDate)
+	if err == nil {
+		return parsedAfterDate.Format("02-01-2006")
+	}
+	return afterDate
 }
