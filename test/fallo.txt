@@ -1,0 +1,1051 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="x-apple-disable-message-reformatting">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=no;">
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+
+    <title>Purchase confirmation</title>
+    <style type="text/css">
+        @media only screen and (max-width:600px) {
+            .headingLarge {
+                font-size: 28px !important;
+                line-height: 36px !important;
+            }
+            .bodyLarge {
+                font-size: 16px !important;
+            }
+            .bodyLargeBold {
+                font-size: 16px !important;
+            }
+        }
+
+        @media only screen and (max-width:600px) {
+            #headerContainer,
+            #bodyContainer,
+            #footerContainer,
+            #imageContainerGreen,
+            #imageContainerWhite {
+                width: 100% !important;
+            }
+            .spacing-outer {
+                padding-top: 24px !important;
+                padding-right: 16px !important;
+                padding-left: 16px !important;
+            }
+            .spacing-outer-sides {
+                padding-right: 16px !important;
+                padding-left: 16px !important;
+            }
+            .spacing-outer-32 {
+                padding-top: 28px !important;
+                padding-right: 16px !important;
+                padding-left: 16px !important;
+            }
+            .spacing-outer-24 {
+                padding-top: 0px;
+                padding-bottom: 0px;
+                padding-right: 16px !important;
+                padding-left: 16px !important;
+            }
+            .spacing-outer-16 {
+                padding-top: 0px !important;
+                padding-bottom: 0px !important;
+                padding-right: 0px !important;
+                padding-left: 0px !important;
+            }
+            .spacing-bottom-16-sm {
+                padding-bottom: 12px !important;
+            }
+            .spacing-top-8-sm {
+                padding-top: 4px !important;
+            }
+            .spacing-bottom-40-sm {
+                padding-bottom: 24px !important;
+            }
+            .spacing-outer-banner {
+                padding-top: 24px !important;
+                padding-right: 24px !important;
+                padding-left: 24px !important;
+                padding-bottom: 24px !important;
+            }
+            .container-border-top,
+            .container-border-bottom {
+                border: 0 !important;
+                border-radius: 0 !important;
+            }
+            .container-border-bottom {
+                border-bottom: 1px solid #F4F4F6 !important;
+            }
+            .promo {
+                background: #249E64 !important;
+        }
+        .promo-padding-right {
+            padding-right: 24px !important;
+        }
+        .promo-code-width {
+            width: 100% !important;
+        }
+        .banner-spacing {
+            padding-right: 20px !important;
+        }
+        .spacing-car-image {
+            padding-right: 16px !important;
+        }
+        }
+
+        @media only screen and (max-width: 480px) {
+            u ~ div,
+            u + #body {
+                min-width: 100% !important;
+            }
+        }
+
+        @media only screen and (max-width:600px) {
+            .headingLarge {
+                font-size: 28px !important;
+                line-height: 36px !important;
+            }
+            .bodyLarge {
+                font-size: 16px !important;
+            }
+            .bodyLargeBold {
+                font-size: 16px !important;
+            }
+        }
+
+        @media only screen and (max-width:600px) {
+            #headerContainer,
+            #bodyContainer,
+            #footerContainer,
+            #imageContainerGreen,
+            #imageContainerWhite {
+                width: 100% !important;
+            }
+            .spacing-outer {
+                padding-top: 24px !important;
+                padding-right: 16px !important;
+                padding-left: 16px !important;
+            }
+            .spacing-outer-sides {
+                padding-right: 16px !important;
+                padding-left: 16px !important;
+            }
+            .spacing-outer-32 {
+                padding-top: 28px !important;
+                padding-right: 16px !important;
+                padding-left: 16px !important;
+            }
+            .spacing-outer-24 {
+                padding-top: 0px;
+                padding-bottom: 0px;
+                padding-right: 16px !important;
+                padding-left: 16px !important;
+            }
+            .spacing-outer-16 {
+                padding-top: 0px !important;
+                padding-bottom: 0px !important;
+                padding-right: 0px !important;
+                padding-left: 0px !important;
+            }
+            .spacing-bottom-16-sm {
+                padding-bottom: 12px !important;
+            }
+            .spacing-top-8-sm {
+                padding-top: 4px !important;
+            }
+            .spacing-bottom-40-sm {
+                padding-bottom: 24px !important;
+            }
+            .spacing-outer-banner {
+                padding-top: 24px !important;
+                padding-right: 24px !important;
+                padding-left: 24px !important;
+                padding-bottom: 24px !important;
+            }
+            .container-border-top,
+            .container-border-bottom {
+                border: 0 !important;
+                border-radius: 0 !important;
+            }
+            .container-border-bottom {
+                border-bottom: 1px solid #F4F4F6 !important;
+            }
+            .promo {
+                background: #249E64 !important;
+        }
+        .promo-padding-right {
+            padding-right: 24px !important;
+        }
+        .promo-code-width {
+            width: 100% !important;
+        }
+        .banner-spacing {
+            padding-right: 20px !important;
+        }
+        .spacing-car-image {
+            padding-right: 16px !important;
+        }
+        }
+
+        @media only screen and (max-width: 480px) {
+            u ~ div,
+            u + #body {
+                min-width: 100% !important;
+            }
+        }
+    </style>
+
+</head>
+
+<body id="body" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; height: 100% !important; margin: 0; padding: 0; width: 100% !important;">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" id="bodyTable" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; height: 100% !important; margin: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; padding: 0; width: 100% !important; word-break: break-word;">
+    <tbody>
+    <tr>
+        <td align="center" valign="top" width="100%" style="width:100%; max-width:100%; min-width:100%;">
+
+            <!-- Email Header -->
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="headerWrapper" bgcolor="#249E64" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; background-color: #249E64; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                <tbody>
+                <tr>
+                    <td align="center" valign="top">
+                        <table border="0" cellpadding="16" cellspacing="0" width="600" id="headerContainer" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td align="center" valign="top" class="spacing-outer container-border-top" style="border-bottom: 0; border-left: 1px solid #E9EAEE; border-right: 1px solid #E9EAEE; border-top: 0; display: block; padding-left: 40px; padding-right: 40px; padding-top: 40px;">
+
+                                    <!-- Email Header Content -->
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" id="headerContent" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td align="center" valign="top">
+
+                                                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="headerContentLogo" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; max-width: 100%; min-width: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td align="left">
+                                                            <img src="https://taxify-static-content-for-public-web.s3.eu-central-1.amazonaws.com/invoicing/email_resource/carsharing/logo.png" border="0" width="56" height="32" alt="Bolt" class="bodySmall color-contentPrimaryInverted img" id="imgLogo" style="-ms-interpolation-mode: bicubic; border: 0; color: #FFFFFF; display: block; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; line-height: 20px; outline: none; text-decoration: none;">
+                                                        </td>
+                                                        <td align="right">
+
+                                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="headerContentHeading" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td align="right">
+                                                                        <span class="caption color-contentPrimaryInverted" style="color: #FFFFFF; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 12px; font-style: normal; font-weight: normal; line-height: 16px;">Total: </span>
+                                                                        <span class="captionBold color-contentPrimaryInverted" style="color: #FFFFFF; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 12px; font-style: normal; font-weight: bold; line-height: 16px;">0.09€</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="right">
+                                                                        <span class="caption color-contentPrimaryInverted" style="color: #FFFFFF; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 12px; font-style: normal; font-weight: normal; line-height: 16px;">Mié, 22&#x2F;05&#x2F;2024</span>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="height-40" colspan="2" style="height: 40px;"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <!-- if [$email_subscription_disclaimer] is not empty -->
+                                                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="headerContentHeading" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td align="left" valign="top" class="spacing-bottom-16" style="padding-bottom: 16px;">
+                                                            <h1 class="headingLarge color-contentPrimaryInverted mp0" style="color: #FFFFFF; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 36px; font-style: normal; font-weight: bold; line-height: 44px; margin: 0 !important; padding: 0 !important;">Pablo, gracias por viajar con nosotros</h1>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" valign="top">
+                                                            <span class="bodyLarge color-contentPrimaryInverted" style="color: #FFFFFF; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 18px; font-style: normal; font-weight: normal; line-height: 24px;">Esperamos que hayas disfrutado del viaje</span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- // Email Header Content -->
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!--/ Email Header -->
+
+            <!-- Image Header -->
+            <table cellpadding="0" cellspacing="0" style="--ms-text-style-adjust: 100%; --webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; border-width: 0; max-width: 100%; min-width: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; width: 100%; word-break: break-word;">
+                <tbody>
+                <tr>
+                    <td valign="top">
+                        <table cellpadding="1" cellspacing="0" style="--ms-text-style-adjust: 100%; --webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; border-width: 0; max-width: 100%; min-width: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; width: 100%; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td bgcolor="#249E64" style="height:54px;"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td align="center" valign="top" width="600px" background="https://taxify-static-content-for-public-web.s3.eu-central-1.amazonaws.com/invoicing/email_resource/carsharing/td%23249E64.png" style="width: 600px;background-image: url(https://taxify-static-content-for-public-web.s3.eu-central-1.amazonaws.com/invoicing/email_resource/carsharing/td%23249E64.png);" height="112">
+
+                        <!--[if gte mso 9]>
+                        <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px; height:112px;" fillcolor="#249E64">
+                            <v:fill type="gradient" color2="#249E64" colors="0% #FFFFFF, 51% #FFFFFF, 51% #249E64" position="0, 0" origin="0, 0" />
+                            <v:textbox inset="0,0,0,0">
+                        <![endif]-->
+                        <table cellpadding="0" cellspacing="0" width="600px" class="container-border-top" style="--ms-text-style-adjust: 100%; --webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-bottom: 0; border-collapse: collapse; border-left: 1px solid #E9EAEE; border-right: 1px solid #E9EAEE; border-spacing: 0; border-top: 0; box-sizing: border-box; display: block; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; width: 100%; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td width="600" valign="top" align="right" class="spacing-car-image" style="padding-right: 40px;">
+
+                                    <img src="https://images.bolt.eu/rentals/order/invoice_scooter_icon.png" height="112" alt="Car" style="-ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none;">
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--[if gte mso 9]>
+                        </v:textbox>
+                        </v:rect>
+                        <![endif]-->
+                    </td>
+                    <td valign="top">
+                        <table cellpadding="1" cellspacing="0" style="--ms-text-style-adjust: 100%; --webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; border-width: 0; max-width: 100%; min-width: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; width: 100%; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td bgcolor="#249E64" height="54px" style="height: 54px"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!--/ Image Header -->
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Email Body -->
+<table border="0" cellpadding="0" cellspacing="0" width="100%" id="bodyWrapper" bgcolor="#FFFFFF" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; background-color: #FFFFFF; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+    <tbody>
+    <tr>
+        <td align="center" valign="top">
+            <table border="0" cellpadding="0" cellspacing="0" width="600" id="bodyContainer" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+
+                <tbody>
+                <tr>
+                    <td align="center" valign="top" class="container-border-bottom" style="border-bottom: 1px solid #E9EAEE; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; border-left: 1px solid #E9EAEE; border-right: 1px solid #E9EAEE; border-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; display: block;">
+
+                        <!-- Info Labels -->
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td class="spacing-outer-sides" style="padding-bottom: 24px; padding-left: 40px; padding-right: 40px; padding-top: 24px;">
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--/ Info Labels-->
+
+                        <!-- Total row -->
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td class="spacing-outer-sides" style="padding-left: 40px; padding-right: 40px;">
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td class="spacing-bottom-16-sm spacing-top-8-sm" style="padding-bottom: 16px; padding-top: 8px;">
+                                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="heading color-contentPrimary" style="color: #2F313F; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 28px; font-style: normal; font-weight: bold; line-height: 36px;">
+                                                            <span>Total</span>
+                                                        </td>
+                                                        <td align="right" class="heading color-contentPrimary" style="color: #2F313F; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 28px; font-style: normal; font-weight: bold; line-height: 36px;">
+                                                            <span>0.09€</span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- /Total row -->
+                        <!-- Element Divider -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td align="center" valign="top" width="100%" class="spacing-outer-sides" style="padding-bottom: 0px; padding-left: 40px; padding-right: 40px; padding-top: 0px;">
+
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" id="elementDivider1" height="1" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; height: 1px; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td align="center" valign="top" bgcolor="#F0F2F5" width="100%" style="background-color:#F0F2F5; height: 1px;"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- // Element Divider -->
+                        <!-- Details -->
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td class="spacing-outer-sides" style="padding-bottom: 0px; padding-left: 40px; padding-right: 40px; padding-top: 16px;">
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td class="spacing-bottom-16" style="padding-bottom: 16px;">
+                                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="bodyLarge color-contentPrimary" style="color: #2F313F; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 18px; font-style: normal; font-weight: normal; line-height: 24px;">
+                                                            <span>Desbloquear</span>
+                                                        </td>
+                                                        <td align="right" class="bodyLarge color-contentPrimary" style="color: #2F313F; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 18px; font-style: normal; font-weight: normal; line-height: 24px;">
+                                                            <span>0.00€</span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td class="spacing-bottom-16" style="padding-bottom: 16px;">
+                                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="bodyLarge color-contentPrimary" style="color: #2F313F; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 18px; font-style: normal; font-weight: normal; line-height: 24px;">
+                                                            <span>Duración</span>
+                                                        </td>
+                                                        <td align="right" class="bodyLarge color-contentPrimary" style="color: #2F313F; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 18px; font-style: normal; font-weight: normal; line-height: 24px;">
+                                                            <span>0.09€</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="bodySmall color-contentSecondary comment-spacing" style="color: #818391; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; line-height: 20px; padding-top: 4px;">
+                                                            <span>55 s</span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- Element Divider -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td align="center" valign="top" width="100%" class="spacing-outer-sides" style="padding-bottom: 0px; padding-left: 40px; padding-right: 40px; padding-top: 0px;">
+
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" id="elementDivider2" height="1" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; height: 1px; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td align="center" valign="top" bgcolor="#F0F2F5" width="100%" style="background-color:#F0F2F5; height: 1px;"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- // Element Divider -->
+                        <!-- Totals -->
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td class="spacing-outer-sides" style="padding-bottom: 0px; padding-left: 40px; padding-right: 40px; padding-top: 16px;">
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td class="spacing-bottom-16" style="padding-bottom: 16px;">
+                                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="bodyLarge color-contentPrimary" style="color: #2F313F; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 18px; font-style: normal; font-weight: normal; line-height: 24px;">
+                                                            <span>Subtotal</span>
+                                                        </td>
+                                                        <td align="right" class="bodyLarge color-contentPrimary " style="color: #2F313F; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 18px; font-style: normal; font-weight: normal; line-height: 24px;">
+                                                            <span>0.09€</span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- / Totals -->
+                        <!-- Element Divider -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td align="center" valign="top" width="100%" class="spacing-outer-sides" style="padding-bottom: 0px; padding-left: 40px; padding-right: 40px; padding-top: 0px;">
+
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" id="elementDivider6" height="1" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; height: 1px; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td align="center" valign="top" bgcolor="#F0F2F5" width="100%" style="background-color:#F0F2F5; height: 1px;"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- // Element Divider -->
+                        <!-- Total charged -->
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td class="spacing-outer-sides" style="padding-left: 40px; padding-right: 40px; padding-top: 24px;">
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td class="spacing-bottom-16" style="padding-bottom: 16px;">
+                                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="bodyLargeBold color-contentPrimary" style="color: #2F313F; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 18px; font-style: normal; font-weight: bold; line-height: 24px;">
+                                                            <span>Importe total cobrado</span>
+                                                        </td>
+                                                        <td align="right" class="bodyLargeBold color-contentPrimary" style="color: #2F313F; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 18px; font-style: normal; font-weight: bold; line-height: 24px;">
+                                                            <span>0.09€</span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td class="spacing-bottom-16" style="padding-bottom: 16px;">
+                                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td align="left" valign="middle" width="32" class="imgWrapper">
+                                                            <img src="https://static.bolt.eu/payment/icons/visa.png" border="0" width="24" height="24" alt="MasterCard" class="bodySmall color-contentSecondary img" id="imgPayment" style="-ms-interpolation-mode: bicubic; border: 0; color: #818391; display: block; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; line-height: 20px; outline: none; text-decoration: none;">
+                                                        </td>
+                                                        <td align="left" class="bodyLarge " style="font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 18px; font-style: normal; font-weight: normal; line-height: 24px;">
+                                                            <span>•••• 8927</span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!-- Space divider -->
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+                                        <tr>
+                                            <td height="22px;" style="height: 22px;"></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!-- End of Space divider -->
+                            </tbody>
+                        </table>
+                        <!-- / Total charged -->
+                        <!-- Hold info -->
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td class="spacing-outer-sides" style="padding-bottom: 0px; padding-left: 40px; padding-right: 40px; padding-top: 0px;">
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td class="spacing-bottom-24" style="padding-bottom: 24px;">
+                                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="bodySmall color-contentPrimary" style="color: #2F313F; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; line-height: 20px;">Podría haberse hecho una retención temporal en tu tarjeta o saldo de Bolt al iniciar el viaje para verificar el método de pago. Esta retención no es un cargo real. La cantidad ya aparece como disponible en tu cuenta o aparecerá como disponible en cuanto se haya completado la verificación del método de pago. Esta operación no será visible en el extracto de tu cuenta. </span>
+                                                            <span><a href="https://3zf1wp45.r.eu-central-1.awstrack.me/L0/https:%2F%2Fbolt.eu%2Fen%2Fsupport%2Farticles%2F6730768930194-payment-verification-booking%2F/1/0107018f9f9eecb9-1eac89af-28e2-4179-88a4-bb4704b7404e-000000/yqpxPtsM5Ws6my1FkWCYjOhR2l8=155" class="link" style="text-decoration: none !important;"><span class="bodySmall color-linkPrimary" style="color: #249E64; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; line-height: 20px;">Más información sobre la autorización de tarjetas.</span></a>
+                                                  </span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- / Hold info -->
+                        <!-- AD -->
+                        <table width="100%" bgcolor="#E3FDED" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background-color:#E3FDED;background-image:url(../assets/img/visuals/visual_plannet.png);background-repeat:no-repeat;background-position:right center;background-attachment:scroll;background-size:80px 160px;border-spacing:0;word-break:break-word;mso-table-lspace:0pt !important;mso-table-rspace:0pt !important;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" >
+                            <tr>
+                                <td class="spacing-outer color-green900" style="color:#186841;padding-top:40px;padding-right:40px;padding-left:40px;" >
+                                    <a href="https://3zf1wp45.r.eu-central-1.awstrack.me/L0/https:%2F%2Fbolt.eu%2Fen%2Fgreen%2F/1/0107018f9f9eecb9-1eac89af-28e2-4179-88a4-bb4704b7404e-000000/8CQc2WF_3RWdW58PAuLIl1MndpQ=155" style="text-decoration:none !important;" >
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+                                            <tr>
+                                                <td>
+                                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0;word-break:break-word;mso-table-lspace:0pt !important;mso-table-rspace:0pt !important;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" >
+                                                        <tr>
+                                                        <td style="padding-top:0;padding-bottom:16px;padding-right:80px;padding-left:0;" >
+                                                            <span class="heading color-green900" style="color:#186841;font-size:28px;font-weight:bold;line-height:36px;font-family:'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif;font-style:normal;" >Has elegido una opción más ecológica. ¡Bien hecho!</span>
+                                                        </td>
+                                                        </tr>
+                                                        <tr>
+                                                        <td class="spacing-bottom-40-sm" style="padding-right:80px;padding-bottom:40px;" >
+                                                            <span class="bodyLarge color-green900" style="color:#186841;font-size:18px;font-weight:normal;line-height:24px;font-family:'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif;font-style:normal;" >Las emisiones de tu viaje en patinete se han neutralizado mediante proyectos de compensación de carbono. Bolt se ha comprometido a tener emisiones cero netas de aquí a 2040. Mientras trabajamos para que haya más viajes con emisiones cero disponibles, adquirimos créditos de carbono verificados de forma independiente para compensar las emisiones de los viajes en patinete de nuestros clientes.</span>
+                                                        </td>
+                                                        </tr>
+                                                        <tr>
+                                                        <td class="spacing-bottom-40-sm " style="padding-bottom:40px;" >
+                                                            <span class="bodyLargeBold color-green900" style="color:#186841;font-size:18px;font-weight:bold;line-height:24px;font-family:'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif;font-style:normal;" >Más información</span>
+                                                        </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                                <td>
+                                                    <img src="https://upload.taxify.eu/EmailTemplateImage/300624-image-769.png" width="80px" height="160px" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- End of AD -->
+                        <!-- Ride details -->
+                        <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td class="spacing-outer-32" style="padding-left: 40px; padding-right: 40px; padding-top: 32px;">
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td class="heading spacing-bottom-4 color-contentPrimary" style="color: #2F313F; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 28px; font-style: normal; font-weight: bold; line-height: 36px; padding-bottom: 4px;">
+                                                <span>Detalles del viaje</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bodySmall color-contentSecondary spacing-bottom-16" style="color: #818391; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; line-height: 20px; padding-bottom: 16px;">
+                                                <span>Mié, 22&#x2F;05&#x2F;2024</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td valign="top" style="background: url(https://taxify-static-content-for-public-web.s3.eu-central-1.amazonaws.com/invoicing/email_resource/carsharing/ic_start.png) top -33px left no-repeat; background-size: 24px; width: 24px;">
+                                            </td>
+                                            <td valign="center" class="bodyLarge color-contentPrimary" style="color: #2F313F; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 18px; font-style: normal; font-weight: normal; line-height: 24px; padding: 0 16px 17px 16px;">
+                                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="color-contentPrimary" style="color: #2F313F;">
+                                                            <span>Paseo de la Ribera 8</span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            <td valign="bottom" align="right" class="bodyLarge color-contentSecondary" style="color: #818391; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 18px; font-style: normal; font-weight: normal; line-height: 24px; padding: 0 16px 17px 16px; width: 48px;">
+                                                <span style="word-break: keep-all;">11:24</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" style="background: url(https://taxify-static-content-for-public-web.s3.eu-central-1.amazonaws.com/invoicing/email_resource/carsharing/ic_finish.png) bottom 12px left no-repeat; background-size: 24px; padding-bottom: 24px; width: 24px;">
+                                            </td>
+                                            <td valign="center" class="bodyLarge color-contentPrimary" style="color: #2F313F; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 18px; font-style: normal; font-weight: normal; line-height: 24px; padding: 0 16px 17px 16px;">
+                                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="color-contentPrimary" style="color: #2F313F;">
+                                                            <span>Paseo de la Ribera 8</span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </td>
+                                            <td valign="bottom" class="bodyLarge color-contentSecondary" align="right" style="color: #818391; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 18px; font-style: normal; font-weight: normal; line-height: 24px; padding: 0 16px 17px 16px; width: 48px;">
+                                                <span style="word-break: keep-all;">11:25</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- Element Divider -->
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td align="center" valign="top" width="100%" style="padding-bottom: 16px;">
+                                                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="elementDivider4" height="1" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; height: 1px; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td align="center" valign="top" bgcolor="#F0F2F5" width="100%" style="background-color:#F0F2F5; height: 1px;"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- // Element Divider -->
+                                    <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0;word-break:break-word;mso-table-lspace:0pt !important;mso-table-rspace:0pt !important;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" >
+                                        <tbody>
+                                            <tr>
+                                                <td class="spacing-bottom-16" style="padding-bottom:16px;" >
+                                                    <table border="0" bgcolor="#5B68F6" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-radius:100px;background-color:#F4F4F6;background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;border-spacing:0;word-break:break-word;mso-table-lspace:0pt !important;mso-table-rspace:0pt !important;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" >
+                                                        <tr>
+                                                            <td class="bodySmall color-contentPrimary spacing-outer-badge" style="color:#2F313F;font-size:14px;font-weight:normal;line-height:20px;font-family:'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif;font-style:normal;padding-top:4px;padding-bottom:4px;padding-left:12px;padding-right:12px;" >
+                                                                <span>Patinete</span>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                                <td  valign="middle" class="spacing-bottom-16" style="padding-left:16px;padding-bottom:16px;" >
+                                                    <span class="bodySmall color-contentSecondary" style="color:#818391;font-size:14px;font-weight:normal;line-height:20px;font-family:'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif;font-style:normal;" >
+                                                        0 km • 1 min 
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- End of ride details -->
+                        <!-- Safety note -->
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0;word-break:break-word;mso-table-lspace:0pt !important;mso-table-rspace:0pt !important;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" >
+                            <tr>
+                                <td class="spacing-outer-sides" style="padding-top:24px;padding-bottom:6px;padding-right:40px;padding-left:40px;" >
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0;word-break:break-word;mso-table-lspace:0pt !important;mso-table-rspace:0pt !important;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" >
+                                        <tr>
+                                            <!-- Label success -->
+                                            <td class="spacing-bottom-8" style="padding-bottom:8px;" >
+                                                <table width="100%" border="0" bgcolor="#E3FDED" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-radius:4px;background-color:#E3FDED;background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;border-spacing:0;word-break:break-word;mso-table-lspace:0pt !important;mso-table-rspace:0pt !important;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" >
+                                                    <tr>
+                                                        <td class="bodySmall color-green700 spacing-outer-label" style="color:#249E64;font-size:14px;font-weight:normal;line-height:20px;font-family:'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif;font-style:normal;padding-top:12px;padding-bottom:12px;padding-left:16px;padding-right:16px;" >
+                                                            <span class="color-green700" style="color:#249E64;" >Todos los patinetes han pasado un control de mantenimiento y seguridad antes de salir a la calle</span>
+                                                        </td>
+                                                        <td align="right" style="padding-right:12px;" >
+                                                            <img src="https://taxify-static-content-for-public-web.s3.eu-central-1.amazonaws.com/invoicing/email_resource/carsharing/safety+toolkit.png" border="0" width="24" height="24" alt="Check" class="bodySmall color-contentPrimaryInverted img" style="border-width:0;outline-style:none;text-decoration:none;-ms-interpolation-mode:bicubic;color:#FFFFFF;font-size:14px;font-weight:normal;line-height:20px;font-family:'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif;font-style:normal;display:block;" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <!-- /Label success -->
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <!--/ Safety note -->
+                        <!-- Insurance note -->
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0;word-break:break-word;mso-table-lspace:0pt !important;mso-table-rspace:0pt !important;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" >
+                            <tr>
+                                <td class="spacing-outer-sides" style="padding-top:6px;padding-bottom:6px;padding-right:40px;padding-left:40px;" >
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0;word-break:break-word;mso-table-lspace:0pt !important;mso-table-rspace:0pt !important;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" >
+                                        <tr>
+                                            <!-- Label success -->
+                                            <td class="spacing-bottom-8" style="padding-bottom:8px;" >
+                                                <table width="100%" border="0" bgcolor="#E3FDED" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-radius:4px;background-color:#E3FDED;background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;border-spacing:0;word-break:break-word;mso-table-lspace:0pt !important;mso-table-rspace:0pt !important;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" >
+                                                    <tr>
+                                                        <td class="bodySmall color-green700 spacing-outer-label" style="color:#249E64;font-size:14px;font-weight:normal;line-height:20px;font-family:'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif;font-style:normal;padding-top:12px;padding-bottom:12px;padding-left:16px;padding-right:16px;" >
+                                                            <span class="color-green700" style="color:#249E64;" >Este viaje ha contado con la protección de Bolt Shield™</span>
+                                                        </td>
+                                                        <td align="right" style="padding-right:12px;" >
+                                                            <img src="https://taxify-static-content-for-public-web.s3.eu-central-1.amazonaws.com/invoicing/email_resource/carsharing/safety+toolkit.png" border="0" width="24" height="24" alt="Check" class="bodySmall color-contentPrimaryInverted img" style="border-width:0;outline-style:none;text-decoration:none;-ms-interpolation-mode:bicubic;color:#FFFFFF;font-size:14px;font-weight:normal;line-height:20px;font-family:'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif;font-style:normal;display:block;" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <!-- /Label success -->
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <!--/ Insurance note -->
+                        <!-- Space divider-->
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td height="24px;" style="height: 24px;"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- End of Space divider -->
+
+                        <!-- LINKS -->
+
+                        <!-- Invoice -->
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td class="spacing-outer-sides" style="padding-bottom: 0px; padding-left: 40px; padding-right: 40px;">
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td style="padding-top: 16px; padding-bottom: 16px;">
+                                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="https://3zf1wp45.r.eu-central-1.awstrack.me/L0/https:%2F%2Fdoclink.live.boltsvc.net%2Finvoice%2Fpdf%3Fi=ES1224-774008%26k=bd9af36de84ac6ed055df9bf3dfc6146/1/0107018f9f9eecb9-1eac89af-28e2-4179-88a4-bb4704b7404e-000000/GzqUl5tIYk7jAX3I5_O7akEB7lI=155" class="bodyMedium color-linkPrimary" style="color: #249E64; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 16px; font-style: normal; font-weight: normal; line-height: 24px;text-decoration: none !important;">
+                                                                <span>Descargar factura en PDF</span>
+                                                            </a>
+                                                        </td>
+                                                        <td align="right">
+                                                            <img src="https://taxify-static-content-for-public-web.s3.eu-central-1.amazonaws.com/invoicing/email_resource/carsharing/ic_external.png" border="0" width="24" height="24" alt="PDF" class="bodySmall color-contentSecondary img" id="imgPDF" style="-ms-interpolation-mode: bicubic; border: 0; color: #818391; display: block; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; line-height: 20px; outline: none; text-decoration: none;">
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- End of invoice -->
+                        <!-- Element Divider -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td align="center" valign="top" width="100%" class="spacing-outer-sides" style="padding-bottom: 0px; padding-left: 40px; padding-right: 40px; padding-top: 0px;">
+
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" id="elementDivider5" height="1" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; height: 1px; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td align="center" valign="top" bgcolor="#F0F2F5" width="100%" style="background-color:#F0F2F5; height: 1px;"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- // Element Divider -->
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td class="spacing-outer-sides" style="padding-bottom: 24px; padding-left: 40px; padding-right: 40px; padding-top: 0px;">
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td style="padding-top: 16px; padding-bottom: 16px;">
+                                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="https://3zf1wp45.r.eu-central-1.awstrack.me/L0/https:%2F%2Fbolt.onelink.me%2FsbJ2%2F7it9dupj/1/0107018f9f9eecb9-1eac89af-28e2-4179-88a4-bb4704b7404e-000000/2wTRqoF-y9_jft1nI4OEai4avgs=155" class="bodyMedium color-linkPrimary" style="text-decoration: none !important;color: #249E64; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 16px; font-style: normal; font-weight: normal; line-height: 24px;">
+                                                                <span>Contactar con soporte</span>
+                                                            </a>
+                                                        </td>
+                                                        <td align="right" class="bodyLarge color-contentPrimary" style="color: #2F313F; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 18px; font-style: normal; font-weight: normal; line-height: 24px;">
+                                                            <img src="https://taxify-static-content-for-public-web.s3.eu-central-1.amazonaws.com/invoicing/email_resource/carsharing/ic_external.png" border="0" width="24" height="24" alt="Support" class="bodySmall color-contentSecondary img" id="imgSupport" style="-ms-interpolation-mode: bicubic; border: 0; color: #818391; display: block; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; line-height: 20px; outline: none; text-decoration: none;">
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- End of LINKS -->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!--/ Email Body -->
+
+
+<!-- Email Footer -->
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" id="footerWrapper" bgcolor="#FFFFFF" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; background-color: #FFFFFF; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+    <tbody>
+    <tr>
+        <td align="center" valign="top">
+            <table border="0" cellspacing="0" width="600" id="footerContainer" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                <tbody>
+                <tr>
+                    <td align="center" valign="top" class="spacing-outer spacing-bottom-40-sm" style="padding-bottom: 40px; padding-left: 40px; padding-right: 40px; padding-top: 40px;">
+
+                        <!-- Email Footer Content -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" id="footerContent" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td align="center" valign="top">
+
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="bodySmall color-contentTertiary" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; color: #A9ABB9; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; line-height: 20px; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td align="center" valign="top">
+                                                <span>Proveedor de servicios Bolt Operations OÜ</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" valign="top">
+                                                <span>Vana-Lõuna tn 15, Tallinn 10134, Estonia</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" valign="top">
+                                                <span>NIF 14532901 • NIF ESN0531372A</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" id="footerWrapper" bgcolor="#FFFFFF" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; background-color: #FFFFFF; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+    <tbody>
+    <tr>
+        <td align="center" valign="top">
+            <table border="0" class="spacing-outer" cellspacing="0" width="600" id="footerContainer" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; padding-left: 40px; padding-right: 40px; padding-top: 40px; word-break: break-word;">
+                <tbody>
+                <tr>
+                    <td align="center" valign="top" class="spacing-bottom-24" style="padding-bottom: 24px;">
+
+                        <!-- Email Footer Content -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" id="footerContent" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                            <tbody>
+                            <tr>
+                                <td align="center" valign="top">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" id="footerContentCaption" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td align="center" valign="top" class="spacing-bottom-8" style="padding-bottom: 8px;">
+                                                <span class="bodySmall color-contentSecondary" style="color: #818391; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; line-height: 20px;">Hecho en Estonia con 💚</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" id="footerContentSocial" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                        <tbody>
+                                        <tr>
+                                            <td align="center" valign="middle">
+                                                <table border="0" cellpadding="0" cellspacing="0" width="initial" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <!-- if [$social_twitter_facebook] is not empty -->
+                                                        <td align="center" valign="middle" width="40" class="imgWrapper">
+                                                            <a href="https://3zf1wp45.r.eu-central-1.awstrack.me/L0/https:%2F%2Fwww.facebook.com%2FBolt%2F/1/0107018f9f9eecb9-1eac89af-28e2-4179-88a4-bb4704b7404e-000000/S1MTYv1ZSqoQ6SpXk4z7VpaYjww=155" class="link" style="text-decoration: none !important;"><img src="https://taxify-static-content-for-public-web.s3.eu-central-1.amazonaws.com/invoicing/email_resource/carsharing/ic_social_facebook.png" width="24" height="24" alt="Facebook" class="bodySmall color-contentSecondary img-social-link" style="-ms-interpolation-mode: bicubic; border: 0; color: #818391; display: block; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; line-height: 20px; outline: none; padding-bottom: 8px; padding-left: 8px; padding-right: 8px; padding-top: 8px; text-decoration: none;"></a>
+                                                        </td>
+                                                        <!-- // end if -->
+
+                                                        <!-- if [$social_instagram_url] is not empty -->
+                                                        <td align="center" valign="middle" width="40" class="imgWrapper">
+                                                            <a href="https://3zf1wp45.r.eu-central-1.awstrack.me/L0/https:%2F%2Fwww.instagram.com%2Fbolt%2F/1/0107018f9f9eecb9-1eac89af-28e2-4179-88a4-bb4704b7404e-000000/T9MnIKpQghAfkTKQD_x12IEoNr0=155" class="link" style="text-decoration: none !important;"><img src="https://taxify-static-content-for-public-web.s3.eu-central-1.amazonaws.com/invoicing/email_resource/carsharing/ic_social_instagram.png" width="24" height="24" alt="Instagram" class="bodySmall color-contentSecondary img-social-link" style="-ms-interpolation-mode: bicubic; border: 0; color: #818391; display: block; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; line-height: 20px; outline: none; padding-bottom: 8px; padding-left: 8px; padding-right: 8px; padding-top: 8px; text-decoration: none;"></a>
+                                                        </td>
+                                                        <!-- // end if -->
+
+                                                        <!-- if [$social_twitter_url] is not empty -->
+                                                        <td align="center" valign="middle" width="40" class="imgWrapper">
+                                                            <a href="https://3zf1wp45.r.eu-central-1.awstrack.me/L0/https:%2F%2Ftwitter.com%2FBoltapp/1/0107018f9f9eecb9-1eac89af-28e2-4179-88a4-bb4704b7404e-000000/og3brdPlBYJ7JYbql0rBNGsaJp8=155" class="link" style="text-decoration: none !important;"><img src="https://taxify-static-content-for-public-web.s3.eu-central-1.amazonaws.com/invoicing/email_resource/carsharing/ic_social_twitter.png" width="24" height="24" alt="Twitter" class="bodySmall color-contentSecondary img-social-link" style="-ms-interpolation-mode: bicubic; border: 0; color: #818391; display: block; font-family: 'Euclid Circular B', Arial, Avenir, Helvetica, Verdana, sans-serif; font-size: 14px; font-style: normal; font-weight: normal; line-height: 20px; outline: none; padding-bottom: 8px; padding-left: 8px; padding-right: 8px; padding-top: 8px; text-decoration: none;"></a>
+                                                        </td>
+                                                        <!-- // end if -->
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- // Email Footer Content -->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!--/ Email Footer -->
+
+<img src="https://node.bolt.eu/email-internal/pixel?id=6f831a576350b78fee058d7739414c77b3730c87790bcd1c778077a7894c661384dcde57c032.gif" style="width:1px;height:1px;"/><img alt="" src="https://3zf1wp45.r.eu-central-1.awstrack.me/I0/0107018f9f9eecb9-1eac89af-28e2-4179-88a4-bb4704b7404e-000000/RggR-qj9atoo0d7DOQWN9acnJ7U=155" style="display: none; width: 1px; height: 1px;">
+</body>
+
+</html>

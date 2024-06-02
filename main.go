@@ -88,7 +88,7 @@ func extractMails() {
 	}
 
 	rx := `.*(?P<Fecha>\d{2}\/\d{2}\/\d{4}) .*Total (?P<Total>[0-9\.]+)€ .*Desbloquear (?P<Desbloquear>[0-9\.]+)€ .* (?P<Min>[0-9]+) min(?: (?P<Seg>[0-9]+) s)? .*Subtotal (?P<Subtotal>[0-9\.]+)€(?: .*Descuento (?P<Descuento>[0-9\.\-]+)€)?`
-	rx2 := `.*(?P<Fecha>\d{2}\/\d{2}\/\d{4}) .*Total (?P<Total>[0-9\.]+)€ .*Desbloquear (?P<Desbloquear>[0-9\.]+)€ .*(?: (?P<Min>[0-9]+) min(?: (?P<Seg>[0-9]+) s)?)? .*Subtotal (?P<Subtotal>[0-9\.]+)€(?: Importe total cobrado (?P<Cobrado>[0-9\.]+)€)?`
+	rx2 := `.*(?P<Fecha>\d{2}\/\d{2}\/\d{4}) .*Total (?P<Total>[0-9\.]+)€ .*Desbloquear (?P<Desbloquear>[0-9\.]+)€ Duración (?P<Duracion>[0-9\.]+)€(?: (?P<Min>[0-9]+) min)?(?: (?P<Seg>[0-9]+) s)? .*Subtotal (?P<Subtotal>[0-9\.]+)€(?: Importe total cobrado (?P<Cobrado>[0-9\.]+)€)?`
 
 	sort.Slice(msgs, func(a, b int) bool {
 		timea, err := inboxer.ReceivedTime(msgs[a].InternalDate)
@@ -110,7 +110,7 @@ func extractMails() {
 			params = utils.GetParams(rx2, msg.Snippet)
 		}
 		if params["Fecha"] != "" {
-			receipt := utils.CreateBoltReceipt(params, msg.Snippet)
+			receipt := utils.CreateBoltReceipt(params, msg.Snippet, msg)
 			if errbody == nil {
 				if distancia, starttime, err := utils.ParseBodyTravel(string(decoded)); err == nil {
 					receipt.Distancia = distancia

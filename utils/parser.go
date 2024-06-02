@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/psanchezg/inbox-extract-data/interfaces"
+	"google.golang.org/api/gmail/v1"
 )
 
 /**
@@ -27,10 +28,13 @@ func GetParams(regEx, url string) (paramsMap map[string]string) {
 			paramsMap[name] = match[i]
 		}
 	}
+	if paramsMap["Seg"] != "" && paramsMap["Min"] == "" {
+		paramsMap["Min"] = "0"
+	}
 	return paramsMap
 }
 
-func CreateBoltReceipt(params map[string]string, raw string) interfaces.BoltReceipt {
+func CreateBoltReceipt(params map[string]string, raw string, msg *gmail.Message) interfaces.BoltReceipt {
 	receipt := interfaces.BoltReceipt{
 		//Fecha: params["Fecha"],
 		Snippet: raw,
@@ -69,7 +73,8 @@ func CreateBoltReceipt(params map[string]string, raw string) interfaces.BoltRece
 			var segundos int32 = 20 * 60
 			receipt.Duracion = int32(segundos)
 		} else {
-			fmt.Println("error", params)
+			fmt.Println("error", params, raw)
+			WriteFile(msg)
 			receipt.Duracion = 0
 		}
 	} else {

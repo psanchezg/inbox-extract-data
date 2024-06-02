@@ -49,6 +49,26 @@ func TestParseBodyTravel(t *testing.T) {
 	}
 }
 
+func TestParseBodyTravel2(t *testing.T) {
+	file, err := os.ReadFile("./test/fallo.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	distancia, starttime, err := utils.ParseBodyTravel(string(file))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if distancia != 5.56 {
+		t.Fatalf(`Parse distancia failed. distancia mustbe "5.56" not "%v"`, distancia)
+	}
+	if start, err := time.ParseDuration("07h17m0s"); err == nil {
+		if starttime != start {
+			t.Fatalf(`Parse start time failed. starttime mustbe "07h17m0s" not "%v"`, starttime)
+		}
+	}
+}
+
 func TestParseBodyPlan(t *testing.T) {
 	file, err := os.ReadFile("./test/contratar-plan-20mes.txt")
 	if err != nil {
@@ -124,7 +144,7 @@ func TestParseBodyPlan2(t *testing.T) {
 func TestParseLines(t *testing.T) {
 
 	rx := `.*(?P<Fecha>\d{2}\/\d{2}\/\d{4}) .*Total (?P<Total>[0-9\.]+)€ .*Desbloquear (?P<Desbloquear>[0-9\.]+)€ .* (?P<Min>[0-9]+) min(?: (?P<Seg>[0-9]+) s)? .*Subtotal (?P<Subtotal>[0-9\.]+)€(?: .*Descuento (?P<Descuento>[0-9\.\-]+)€)?`
-	rx2 := `.*(?P<Fecha>\d{2}\/\d{2}\/\d{4}) .*Total (?P<Total>[0-9\.]+)€ .*Desbloquear (?P<Desbloquear>[0-9\.]+)€ .*(?: (?P<Min>[0-9]+) min(?: (?P<Seg>[0-9]+) s)?)? .*Subtotal (?P<Subtotal>[0-9\.]+)€(?: Importe total cobrado (?P<Cobrado>[0-9\.]+)€)?`
+	rx2 := `.*(?P<Fecha>\d{2}\/\d{2}\/\d{4}) .*Total (?P<Total>[0-9\.]+)€ .*Desbloquear (?P<Desbloquear>[0-9\.]+)€ Duración (?P<Duracion>[0-9\.]+)€(?: (?P<Min>[0-9]+) min)?(?: (?P<Seg>[0-9]+) s)? .*Subtotal (?P<Subtotal>[0-9\.]+)€(?: Importe total cobrado (?P<Cobrado>[0-9\.]+)€)?`
 
 	file, err := os.Open("./test/lines.txt")
 	if err != nil {
@@ -142,29 +162,29 @@ func TestParseLines(t *testing.T) {
 		}
 		// Tests
 		if params["Fecha"] != snippets[1] {
-			t.Fatalf(`Line 1 failed. Fecha mustbe "%v" not "%v"`, params["Fecha"], snippets[1])
+			t.Fatalf(`Line 1 failed. Fecha mustbe "%v" not "%v"`, snippets[1], params["Fecha"])
 		}
 		if params["Total"] != snippets[2] {
-			t.Fatalf(`Line 1 failed. Total mustbe "%v" not "%v"`, params["Total"], snippets[2])
-		}
-		if params["Min"] != snippets[3] {
-			t.Fatalf(`Line 1 failed. Min mustbe "%v" not "%v"`, params["Min"], snippets[3])
+			t.Fatalf(`Line 1 failed. Total mustbe "%v" not "%v"`, snippets[2], params["Total"])
 		}
 		if params["Seg"] != snippets[4] {
-			t.Fatalf(`Line 1 failed. Seg mustbe "%v" not "%v"`, params["Seg"], snippets[4])
+			t.Fatalf(`Line 1 failed. Seg mustbe "%v" not "%v"`, snippets[4], params["Seg"])
+		}
+		if params["Min"] != snippets[3] {
+			t.Fatalf(`Line 1 failed. Min mustbe "%v" not "%v"`, snippets[3], params["Min"])
 		}
 		if params["Subtotal"] != snippets[5] {
-			t.Fatalf(`Line 1 failed. Subtotal mustbe "%v" not "%v"`, params["Subtotal"], snippets[5])
+			t.Fatalf(`Line 1 failed. Subtotal mustbe "%v" not "%v"`, snippets[5], params["Subtotal"])
 		}
 		if params["Cobrado"] != snippets[6] {
-			t.Fatalf(`Line 1 failed. Cobrado mustbe "%v" not "%v"`, params["Cobrado"], snippets[6])
+			t.Fatalf(`Line 1 failed. Cobrado mustbe "%v" not "%v"`, snippets[6], params["Cobrado"])
 		}
 	}
 }
 
 func TestParseInputDate(t *testing.T) {
 	afterDate := "2024/04/01"
-	formattedDate := utils.ParseAndFormatDate(afterDate)
+	formattedDate := utils.ParseAndFormatDate(afterDate, "02/01/2006")
 	if formattedDate == afterDate {
 		t.Fatalf(`Error en la conversión de fecha de "%v"`, afterDate)
 	}
