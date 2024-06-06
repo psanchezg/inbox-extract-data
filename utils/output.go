@@ -9,8 +9,23 @@ import (
 
 	"github.com/psanchezg/inbox-extract-data/interfaces"
 	"gitlab.com/hartsfield/inboxer"
+	"golang.org/x/exp/constraints"
 	"google.golang.org/api/gmail/v1"
 )
+
+func min[T constraints.Ordered](a, b T) T {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+func max[T constraints.Ordered](a, b T) T {
+	if b < a {
+		return a
+	}
+	return b
+}
 
 func IterateAndPrintBoltPlans(plans []interfaces.BoltPlan) {
 	currentTime := time.Now()
@@ -29,12 +44,17 @@ func IterateAndPrintBoltPlans(plans []interfaces.BoltPlan) {
 				fmt.Printf("Periodo de %v a %v\n", plan.Inicio.Format("02/01/2006 15:04"), plan.Fin.Format("02/01/2006 15:04"))
 			}
 			fmt.Println("||||||||||||||||||||||||||||||||||||||||||||||||")
+
 			diff := time.Since(plan.Uso.PrimerViaje)
 			diasUsados := int64(diff.Hours() / 24)
 			restantes := fmt.Sprintf("sobre %v dias", plan.Duracion)
 			if plan.Purchased && plan.Duracion-diasUsados >= 0 {
 				fmt.Printf("Dias restantes del bono: %v\n", plan.Duracion-diasUsados)
 				restantes = fmt.Sprintf("sobre %v dias", diasUsados)
+			} else {
+				// No está activo, calcular al final del bono
+				diff = plan.Fin.Sub(plan.Uso.PrimerViaje)
+				diasUsados = int64((diff.Hours() - 24) / 24)
 			}
 			minutos := math.Round(float64(plan.Uso.Tiempo) / 60.0)
 			fmt.Printf("Tiempo total: %v minutos\n", minutos)
