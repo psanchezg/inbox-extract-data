@@ -1,4 +1,4 @@
-package interfaces
+package bolt
 
 import "time"
 

@@ -1,0 +1,10 @@
+processes:
+  - name: bolt
+    module: bolt
+    query: from:receipts@bolt.eu after:2024/01/01
+    outputs:
+      - type: stdout
+        format: lines
+      - type: file
+        format: lines
+        path: ./dump/bolt.txt

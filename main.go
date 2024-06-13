@@ -1,18 +1,15 @@
 package main
 
 import (
-	"context"
-	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"os"
-	"sort"
-	"time"
 
-	"github.com/psanchezg/inbox-extract-data/interfaces"
-	"github.com/psanchezg/inbox-extract-data/utils"
-	"gitlab.com/hartsfield/gmailAPI"
-	"gitlab.com/hartsfield/inboxer"
-	gmail "google.golang.org/api/gmail/v1"
+	"github.com/psanchezg/inbox-extract-data/config"
+	"github.com/psanchezg/inbox-extract-data/extractors"
+	"github.com/psanchezg/inbox-extract-data/modules/bolt"
+	"github.com/psanchezg/inbox-extract-data/outputs"
+	"github.com/spf13/viper"
 )
 
 var (
@@ -48,117 +45,70 @@ var (
 // 	}
 // }
 
-func extractMails() {
-	// Connect to the gmail API service.
-	ctx := context.Background()
-	srv := gmailAPI.ConnectToService(ctx, gmail.GmailReadonlyScope)
-
-	if afterDate == "" {
-		afterDate = "2024/01/01"
-	}
-	msgs, err := inboxer.Query(srv, fmt.Sprintf("from:receipts@bolt.eu after:%s", afterDate))
+func processMails(configurations config.Configurations) {
+	// TODO: Iterate over all processes
+	process := configurations.Processes[0]
+	query := process.Query
+	msgs, err := extractors.ExtractMails(query)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	var firstMessage time.Time
-	receipts := []interfaces.BoltReceipt{}
-	otherreceipts := []interfaces.BoltReceipt{}
-	planes := []interfaces.BoltPlan{}
-	plan := interfaces.BoltPlan{
-		Total:      0.0,
-		Minutos:    0,
-		MinutosDia: 0,
-		Duracion:   0,
-		Purchased:  false,
-		Uso: interfaces.BoltUsePlan{
-			Tiempo:    0,
-			Distancia: 0,
-			Pagado:    0,
-			Servicio:  0,
-		},
-	}
-	parsedAfterDate, err := time.Parse("2006/01/02", afterDate)
-	if err == nil {
-		plan.Inicio = parsedAfterDate
-		plan.Fin = time.Now()
-		diferencia := plan.Fin.Sub(plan.Inicio)
-		plan.Duracion = int64(diferencia.Hours() / 24)
-		planes = append(planes, plan)
-	}
-
-	rx := `.*(?P<Fecha>\d{2}\/\d{2}\/\d{4}) .*Total (?P<Total>[0-9\.]+)€ .*Desbloquear (?P<Desbloquear>[0-9\.]+)€ .* (?P<Min>[0-9]+) min(?: (?P<Seg>[0-9]+) s)? .*Subtotal (?P<Subtotal>[0-9\.]+)€(?: .*Descuento (?P<Descuento>[0-9\.\-]+)€)?`
-	rx2 := `.*(?P<Fecha>\d{2}\/\d{2}\/\d{4}) .*Total (?P<Total>[0-9\.]+)€ .*Desbloquear (?P<Desbloquear>[0-9\.]+)€ Duración (?P<Duracion>[0-9\.]+)€(?: (?P<Min>[0-9]+) min)?(?: (?P<Seg>[0-9]+) s)? .*Subtotal (?P<Subtotal>[0-9\.]+)€(?: Importe total cobrado (?P<Cobrado>[0-9\.]+)€)?`
-
-	sort.Slice(msgs, func(a, b int) bool {
-		timea, err := inboxer.ReceivedTime(msgs[a].InternalDate)
+	if process.Module == "bolt" {
+		fmt.Println("========================================================")
+		fmt.Printf("PROCESSING... %v\n", process.Name)
+		fmt.Println("========================================================")
+		planes, err := bolt.ProcessRawData(msgs)
 		if err != nil {
-			return true
+			fmt.Println(err)
+			return
 		}
-		timeb, err := inboxer.ReceivedTime(msgs[b].InternalDate)
-		if err != nil {
-			return false
+		var serialized []map[string]interface{}
+		inrec, _ := json.Marshal(planes)
+		json.Unmarshal(inrec, &serialized)
+		// Human export
+		var ret []string
+		if ret, err = bolt.ExportDataAsStrings[map[string]interface{}](serialized); err != nil {
+			fmt.Println(err)
 		}
-		return timea.Before(timeb)
-	})
-
-	// Range over the messages
-	for _, msg := range msgs {
-		decoded, errbody := base64.URLEncoding.DecodeString(msg.Payload.Body.Data)
-		params := utils.GetParams(rx, msg.Snippet)
-		if params["Fecha"] == "" {
-			params = utils.GetParams(rx2, msg.Snippet)
-		}
-		if params["Fecha"] != "" {
-			receipt := utils.CreateBoltReceipt(params, msg.Snippet, msg)
-			if errbody == nil {
-				if distancia, starttime, err := utils.ParseBodyTravel(string(decoded)); err == nil {
-					receipt.Distancia = distancia
-					if !receipt.Fecha.IsZero() {
-						receipt.Fecha = receipt.Fecha.Add(starttime)
-					}
-				}
-			}
-			if !receipt.Fecha.IsZero() && (firstMessage.IsZero() || firstMessage.After(receipt.Fecha)) {
-				firstMessage = receipt.Fecha
-			}
-			currentPlanIdx := utils.GetCurrentPlanIdxForDate(planes, receipt.Fecha)
-			if currentPlanIdx > -1 {
-				receipts = append(receipts, receipt)
-				planes[currentPlanIdx].Uso.Pagado += receipt.Total
-				planes[currentPlanIdx].Uso.Servicio += receipt.Subtotal
-				planes[currentPlanIdx].Uso.Tiempo += int64(receipt.Duracion)
-				planes[currentPlanIdx].Uso.Distancia += receipt.Distancia
-				first := planes[currentPlanIdx].Uso.PrimerViaje
-				if !receipt.Fecha.IsZero() && (first.IsZero() || first.After(receipt.Fecha)) {
-					planes[currentPlanIdx].Uso.PrimerViaje = receipt.Fecha
-				}
-			} else {
-				// fmt.Println("Viaje fuera de plan: ", receipt.Fecha.Format("02/01/2006"))
-				otherreceipts = append(otherreceipts, receipt)
-			}
-			// fmt.Println("t", receipt.Subtotal, receipt.Total, receipt.Duracion)
-		} else {
-			// Test parse plan
-			if errbody == nil {
-				if detectplan, err := utils.ParseBodyPlan(string(decoded)); err == nil {
-					plan = detectplan
-					fmt.Printf("Plan encontrado el %v\n", plan.Inicio.Format("02/01/2006 15:04"))
-					planes = append(planes, plan)
-				}
+		for _, output := range process.Outputs {
+			if output.Type == "stdout" {
+				outputs.ConsoleOutput(ret)
+			} else if output.Type == "file" {
+				outputs.FileOutput(ret, output.Path)
 			}
 		}
-		// writeFile(msg)
+		// Machine export
+		// TODO: CSV, JSON, XML, Sheets, etc.
 	}
 
-	// fmt.Println("receipts", receipts)
-	// Bono 30 días, 20 minutos al día = 30€
-	fmt.Printf("Primer viaje detectado: %v\n", firstMessage.Format("02-01-2006 15:04"))
-	fmt.Printf("Total número de viajes realizados: %v\n", len(receipts))
-	utils.IterateAndPrintBoltPlans(planes)
 	fmt.Println("========================================================")
 }
 
 func main() {
-	extractMails()
+	// Set the file name of the configurations file
+	viper.SetConfigName("config")
+
+	// Set the path to look for the configurations file
+	viper.AddConfigPath(".")
+
+	// Enable VIPER to read Environment Variables
+	viper.AutomaticEnv()
+
+	viper.SetConfigType("yml")
+	var configuration config.Configurations
+
+	if err := viper.ReadInConfig(); err != nil {
+		fmt.Printf("Error reading config file, %s", err)
+	}
+
+	// Set undefined variables
+	// viper.SetDefault("database.dbname", "test_db")
+
+	err := viper.Unmarshal(&configuration)
+	if err != nil {
+		fmt.Printf("Unable to decode into struct, %v", err)
+	}
+
+	processMails(configuration)
 }
