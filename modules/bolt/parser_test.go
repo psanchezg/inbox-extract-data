@@ -7,6 +7,8 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/psanchezg/inbox-extract-data/utils"
 )
 
 func TestParseBodyTravel(t *testing.T) {
@@ -154,9 +156,9 @@ func TestParseLines(t *testing.T) {
 	// optionally, resize scanner's capacity for lines over 64K, see next example
 	for scanner.Scan() {
 		snippets := strings.Split(scanner.Text(), "|||")
-		params := getParams(rx, snippets[0])
+		params := utils.GetParams(rx, snippets[0])
 		if params["Fecha"] == "" {
-			params = getParams(rx2, snippets[0])
+			params = utils.GetParams(rx2, snippets[0])
 		}
 		// Tests
 		if params["Fecha"] != snippets[1] {

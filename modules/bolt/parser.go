@@ -13,28 +13,6 @@ import (
 	"google.golang.org/api/gmail/v1"
 )
 
-/**
- * Parses url with the given regular expression and returns the
- * group values defined in the expression.
- *
- */
-func getParams(regEx, url string) (paramsMap map[string]string) {
-
-	var compRegEx = regexp.MustCompile(regEx)
-	match := compRegEx.FindStringSubmatch(url)
-
-	paramsMap = make(map[string]string)
-	for i, name := range compRegEx.SubexpNames() {
-		if i > 0 && i <= len(match) {
-			paramsMap[name] = match[i]
-		}
-	}
-	if paramsMap["Seg"] != "" && paramsMap["Min"] == "" {
-		paramsMap["Min"] = "0"
-	}
-	return paramsMap
-}
-
 func createBoltReceipt(params map[string]string, raw string, msg *gmail.Message) BoltReceipt {
 	receipt := BoltReceipt{
 		//Fecha: params["Fecha"],
@@ -97,7 +75,7 @@ func parseBodyTravel(body string) (float64, time.Duration, error) {
 	var distance float64
 	var starttime time.Duration
 	rxtime := `\s*<span style="word-break: keep-all;">(?<Time>[0-9]+:[0-9]+)<\/span>`
-	params2 := getParams(rxtime, body)
+	params2 := utils.GetParams(rxtime, body)
 	if params2["Time"] != "" {
 		duration := strings.Replace(params2["Time"], ":", "h", 1) + "m0s"
 		dur, err := time.ParseDuration(duration)
@@ -105,7 +83,7 @@ func parseBodyTravel(body string) (float64, time.Duration, error) {
 			starttime = dur
 		}
 	}
-	params := getParams(rxkms, body)
+	params := utils.GetParams(rxkms, body)
 	if params["Distance"] == "" {
 		return distance, starttime, fmt.Errorf("no kms found")
 	}
@@ -139,7 +117,7 @@ func parseBodyPlan(body string) (BoltPlan, error) {
 		return BoltPlan{}, fmt.Errorf("no plan found")
 	}
 	for _, v := range matches {
-		params := getParams(rxdate, v[1])
+		params := utils.GetParams(rxdate, v[1])
 		if params["Fecha"] != "" {
 			tt, err := time.Parse("02 January 2006", params["Fecha"])
 			if err == nil {
@@ -161,13 +139,13 @@ func parseBodyPlan(body string) (BoltPlan, error) {
 				}
 			}
 		} else {
-			params = getParams(rxtotal, v[1])
+			params = utils.GetParams(rxtotal, v[1])
 			if params["Total"] != "" {
 				if total, err := strconv.ParseFloat(params["Total"], 64); err == nil {
 					plan.Total = total
 				}
 			}
-			params = getParams(rxplan, v[1])
+			params = utils.GetParams(rxplan, v[1])
 			if params["Duracion"] == "1 mes" {
 				plan.Duracion = 30
 			}
@@ -215,7 +193,7 @@ func parseAndFormatDate(afterDate string, format string) string {
 	return afterDate
 }
 
-func ProcessRawData(msgs []*gmail.Message) ([]BoltPlan, error) {
+func ProcessRawData(msgs []*gmail.Message, currentYear int) ([]BoltPlan, error) {
 	var firstMessage time.Time
 	var lastMessage time.Time
 	receipts := []BoltReceipt{}
@@ -242,9 +220,9 @@ func ProcessRawData(msgs []*gmail.Message) ([]BoltPlan, error) {
 	// Range over the messages
 	for _, msg := range msgs {
 		decoded, errbody := base64.URLEncoding.DecodeString(msg.Payload.Body.Data)
-		params := getParams(rx, msg.Snippet)
+		params := utils.GetParams(rx, msg.Snippet)
 		if params["Fecha"] == "" {
-			params = getParams(rx2, msg.Snippet)
+			params = utils.GetParams(rx2, msg.Snippet)
 		}
 		if params["Fecha"] != "" {
 			receipt := createBoltReceipt(params, msg.Snippet, msg)

@@ -8,3 +8,13 @@ processes:
       - type: file
         format: lines
         path: ./dump/bolt.txt
+
+  - name: mmonit-encoders
+    module: mmonit-encoders
+    query: from:mmonit@aranova.cloud after:2024/06/01 before:2024/07/01
+    outputs:
+      - type: stdout
+        format: lines
+      - type: file
+        format: lines
+        path: ./dump/mmonit.txt

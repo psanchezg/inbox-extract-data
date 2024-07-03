@@ -3,10 +3,10 @@ package bolt
 import (
 	"fmt"
 	"math"
-	"strings"
 	"time"
 
 	"github.com/psanchezg/inbox-extract-data/interfaces"
+	"github.com/psanchezg/inbox-extract-data/utils"
 )
 
 // func parseTimeWithTimezone(date string) (time.Time, error) {
@@ -41,18 +41,6 @@ import (
 // 	return time.ParseInLocation(layout, date, loc)
 // }
 
-func parseDateWithFormat(date string) (time.Time, error) {
-	if strings.HasSuffix(date, "Z") {
-		date = date[:len(date)-1] + "+00:00"
-	}
-	layout := "2006-01-02T15:04:05-07:00"
-	return time.Parse(layout, date)
-}
-
-func round(value any) float64 {
-	return math.Round(value.(float64)*100) / 100
-}
-
 func ExportDataAsStrings[K interfaces.Any](datas []K) ([]string, error) {
 	ret := []string{}
 	props := Props
@@ -65,7 +53,7 @@ func ExportDataAsStrings[K interfaces.Any](datas []K) ([]string, error) {
 		if aux, ok = data[props["from"].Key]; !ok {
 			return ret, fmt.Errorf("error getting start date")
 		}
-		from, err := parseDateWithFormat(aux.(string))
+		from, err := utils.ParseDateWithFormat(aux.(string))
 		if err != nil {
 			return ret, err
 		}
@@ -77,7 +65,7 @@ func ExportDataAsStrings[K interfaces.Any](datas []K) ([]string, error) {
 			if aux, ok = data[props["to"].Key]; !ok {
 				return ret, fmt.Errorf("error getting end date")
 			}
-			to, err := parseDateWithFormat(aux.(string))
+			to, err := utils.ParseDateWithFormat(aux.(string))
 			if err != nil {
 				return ret, err
 			}
@@ -97,7 +85,7 @@ func ExportDataAsStrings[K interfaces.Any](datas []K) ([]string, error) {
 			ret = append(ret, "||||||||||||||||||||||||||||||||||||||||||||||||\n")
 
 			usage := data[props["usage"].Key].(map[string]interface{})
-			firstTravel, err := parseDateWithFormat(usage[props["usage_firsttravel"].Key].(string))
+			firstTravel, err := utils.ParseDateWithFormat(usage[props["usage_firsttravel"].Key].(string))
 			if err != nil {
 				return ret, err
 			}
@@ -121,43 +109,43 @@ func ExportDataAsStrings[K interfaces.Any](datas []K) ([]string, error) {
 			}
 			minutosUsados := math.Round(float64(usage[props["usage_time"].Key].(float64)) / 60.0)
 			ret = append(ret, fmt.Sprintf(props["usage_time"].Text[0], minutosUsados, props["usage_time"].Unit))
-			distance := round(usage[props["usage_distance"].Key])
+			distance := utils.Round(usage[props["usage_distance"].Key])
 			ret = append(ret, fmt.Sprintf(props["usage_distance"].Text[0], distance, props["usage_distance"].Unit))
-			costeServicio := round(usage[props["usage_service"].Key])
+			costeServicio := utils.Round(usage[props["usage_service"].Key])
 			if purchased {
 				// Computed
-				minutosDia := round(data[props["duration3"].Key])
+				minutosDia := utils.Round(data[props["duration3"].Key])
 				tiempoAdicional := minutosUsados - (float64(diasUsados) * minutosDia)
 				ret = append(ret, fmt.Sprintf(props["duration3"].Text[0], tiempoAdicional, props["duration3"].Unit))
 
 				ret = append(ret, fmt.Sprintf(props["usage_service"].Text[1], costeServicio, props["usage_service"].Unit))
-				pagadoAdicional := round(usage[props["usage_paid"].Key])
+				pagadoAdicional := utils.Round(usage[props["usage_paid"].Key])
 				ret = append(ret, fmt.Sprintf(props["usage_paid"].Text[1], pagadoAdicional, props["usage_paid"].Unit))
 				// Computed
-				importeCubiertoBono := round(costeServicio - pagadoAdicional)
+				importeCubiertoBono := utils.Round(costeServicio - pagadoAdicional)
 				ret = append(ret, fmt.Sprintf("Total incluído en el bono: %v €\n", importeCubiertoBono))
 				// Computed
-				paid := round(usage[props["usage_paid"].Key])
-				totalBono := round(data[props["total"].Key])
-				totalConBono := round(paid + totalBono)
+				paid := utils.Round(usage[props["usage_paid"].Key])
+				totalBono := utils.Round(data[props["total"].Key])
+				totalConBono := utils.Round(paid + totalBono)
 				ret = append(ret, fmt.Sprintf(props["total"].Text[0], totalConBono, props["usage_paid"].Unit))
 				// Computed
-				costeMinutoConBono := round(totalConBono / minutosUsados)
+				costeMinutoConBono := utils.Round(totalConBono / minutosUsados)
 				ret = append(ret, fmt.Sprintf("Coste por minuto real (incluyendo bono): %v €\n", costeMinutoConBono))
 				// Computed
-				costeDia := round((paid + totalBono) / float64(diasUsados))
+				costeDia := utils.Round((paid + totalBono) / float64(diasUsados))
 				ret = append(ret, fmt.Sprintf("Coste por día (incluyendo bono - %s): %v €\n", restantes, costeDia))
 				// Computed
-				costePorKm := round(totalConBono / distance)
+				costePorKm := utils.Round(totalConBono / distance)
 				ret = append(ret, fmt.Sprintf("Coste por km (incluyendo bono): %v €\n", costePorKm))
 			} else {
 				costeServicio := math.Round((usage[props["usage_service"].Key].(float64))*100) / 100
 				ret = append(ret, fmt.Sprintf(props["usage_service"].Text[0], costeServicio, props["usage_service"].Unit))
 				// Computed
-				costeMinuto := round(costeServicio / minutosUsados)
+				costeMinuto := utils.Round(costeServicio / minutosUsados)
 				ret = append(ret, fmt.Sprintf("Coste por minuto real: %v €\n", costeMinuto))
 				// Computed
-				costePorKm := round(costeServicio / distance)
+				costePorKm := utils.Round(costeServicio / distance)
 				ret = append(ret, fmt.Sprintf("Coste por km: %v €\n", costePorKm))
 			}
 		}

@@ -4,11 +4,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/psanchezg/inbox-extract-data/config"
 	"github.com/psanchezg/inbox-extract-data/extractors"
 	"github.com/psanchezg/inbox-extract-data/modules/bolt"
+	mmonitencoders "github.com/psanchezg/inbox-extract-data/modules/mmonit-encoders"
 	"github.com/psanchezg/inbox-extract-data/outputs"
+	"github.com/psanchezg/inbox-extract-data/utils"
 	"github.com/spf13/viper"
 )
 
@@ -17,38 +20,20 @@ var (
 	afterDate = os.Getenv("AFTER_DATE")
 )
 
-// func writeFile(msg *gmail.Message) {
-// 	time, err := inboxer.ReceivedTime(msg.InternalDate)
-// 	if err != nil {
-// 		fmt.Println(err)
-// 	}
-// 	f, err := os.Create(fmt.Sprintf("./dump/%s-%s.txt", time.Format("2006-02-01"), msg.Id))
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		return
-// 	}
-// 	decoded, err := base64.URLEncoding.DecodeString(msg.Payload.Body.Data)
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		return
-
-// 	}
-// 	if _, err := f.WriteString(string(decoded)); err != nil {
-// 		fmt.Println(err)
-// 		f.Close()
-// 		return
-// 	}
-// 	err = f.Close()
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		return
-// 	}
-// }
-
 func processMails(configurations config.Configurations) {
 	// TODO: Iterate over all processes
 	process := configurations.Processes[0]
 	query := process.Query
+	currentYear := time.Now().Year()
+	// Extract date
+	rx := `after:(?P<After>\d{4}\/\d{2}\/\d{2})`
+	params := utils.GetParams(rx, query)
+	// Convert date
+	l := "2006/01/02"
+	tt, err := time.Parse(l, params["After"])
+	if err == nil {
+		currentYear = tt.Year()
+	}
 	msgs, err := extractors.ExtractMails(query)
 	if err != nil {
 		fmt.Println(err)
@@ -58,7 +43,7 @@ func processMails(configurations config.Configurations) {
 		fmt.Println("========================================================")
 		fmt.Printf("PROCESSING... %v\n", process.Name)
 		fmt.Println("========================================================")
-		planes, err := bolt.ProcessRawData(msgs)
+		planes, err := bolt.ProcessRawData(msgs, currentYear)
 		if err != nil {
 			fmt.Println(err)
 			return
@@ -80,6 +65,44 @@ func processMails(configurations config.Configurations) {
 		}
 		// Machine export
 		// TODO: CSV, JSON, XML, Sheets, etc.
+	} else if process.Module == "mmonit-encoders" {
+		fmt.Println("========================================================")
+		fmt.Printf("PROCESSING... %v\n", process.Name)
+		fmt.Println("========================================================")
+		data, err := mmonitencoders.ProcessRawData(msgs, currentYear)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		var serialized map[string][]map[string]interface{}
+		inrec, _ := json.Marshal(data)
+		json.Unmarshal(inrec, &serialized)
+		// Human export
+
+		var ret []string
+		stats := map[string]mmonitencoders.MmonitUsageStats{}
+		for key := range data {
+			if ret2, err := mmonitencoders.ExportDataAsStrings[map[string]interface{}](serialized[key]); err != nil {
+				fmt.Println(err)
+			} else {
+				aux := mmonitencoders.GetAggregateStats[map[string]interface{}](serialized[key])
+				ret = append(ret, "========================================================\n")
+				ret = append(ret, fmt.Sprintf("Total uso del canal %s: %v minutos\n", key, aux.Minutes))
+				stats[key] = aux
+				ret = append(ret, ret2...)
+			}
+		}
+		for _, output := range process.Outputs {
+			if output.Type == "stdout" {
+				outputs.ConsoleOutput(ret)
+			} else if output.Type == "file" {
+				outputs.FileOutput(ret, output.Path)
+			}
+		}
 	}
 
 	fmt.Println("========================================================")
