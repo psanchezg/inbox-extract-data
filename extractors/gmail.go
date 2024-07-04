@@ -5,7 +5,7 @@ import (
 	"log"
 	"sort"
 
-	"gitlab.com/hartsfield/gmailAPI"
+	"github.com/psanchezg/inbox-extract-data/utils"
 	"gitlab.com/hartsfield/inboxer"
 	"google.golang.org/api/gmail/v1"
 )
@@ -29,7 +29,7 @@ func getByID(srv *gmail.Service, msgs *gmail.ListMessagesResponse) ([]*gmail.Mes
 func ExtractMails(query string) ([]*gmail.Message, error) {
 	// Connect to the gmail API service.
 	ctx := context.Background()
-	srv := gmailAPI.ConnectToService(ctx, gmail.GmailReadonlyScope)
+	srv := utils.ConnectToGmailService(ctx)
 	// Recuperar todos los mensajes de la consulta
 	var msgs []*gmail.Message
 	nextPageToken := ""

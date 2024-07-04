@@ -17,6 +17,7 @@ type MmonitUsage struct {
 	Duration float64   `json:"duration"`
 	Minutes  int64     `json:"minutes"`
 	Channel  string    `json:"channel"`
+	Client   string    `json:"client"`
 	Encoder  string    `json:"encoder"`
 }
 

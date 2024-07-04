@@ -2,6 +2,7 @@ package mmonitencoders
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/psanchezg/inbox-extract-data/interfaces"
@@ -20,9 +21,19 @@ func GetAggregateStats[K interfaces.Any](datas []K) MmonitUsageStats {
 	return ret
 }
 
-func ExportDataAsStrings[K interfaces.Any](datas []K) ([]string, error) {
-	ret := []string{}
+func ExportData[K interfaces.Any](datas []K) ([]string, [][]interface{}, error) {
 	props := Props
+	// Lines return
+	ret := []string{}
+	values := [][]any{}
+	// Values header
+	values = append(values, []any{
+		props["client"].Column[0],
+		props["channel"].Column[0],
+		props["from"].Column[0],
+		props["to"].Column[0],
+		props["duration"].Column[0],
+	})
 
 	// currentTime := time.Now()
 	for _, data := range datas {
@@ -30,17 +41,24 @@ func ExportDataAsStrings[K interfaces.Any](datas []K) ([]string, error) {
 		var ok bool
 		// Channel
 		if aux, ok = data[props["channel"].Key]; !ok {
-			return ret, fmt.Errorf("error getting channel")
+			return ret, values, fmt.Errorf("error getting channel")
 		}
+		client := strings.Split(aux.(string), "_")[0]
 		ret = append(ret, ("========================================================\n"))
+		ret = append(ret, fmt.Sprintf(props["client"].Text[0], client, props["client"].Unit))
 		ret = append(ret, fmt.Sprintf(props["channel"].Text[0], aux, props["channel"].Unit))
+		// Values
+		vals := []any{
+			client,
+			aux,
+		}
 		// From date
 		if aux, ok = data[props["from"].Key]; !ok {
-			return ret, fmt.Errorf("error getting start date")
+			return ret, values, fmt.Errorf("error getting start date")
 		}
 		from, err := utils.ParseDateWithFormat(aux.(string))
 		if err != nil {
-			return ret, err
+			return ret, values, err
 		}
 		if !from.IsZero() {
 			_, offset := from.Zone()
@@ -49,22 +67,26 @@ func ExportDataAsStrings[K interfaces.Any](datas []K) ([]string, error) {
 			var aux any
 			var ok bool
 			if aux, ok = data[props["to"].Key]; !ok {
-				return ret, fmt.Errorf("error getting end date")
+				return ret, values, fmt.Errorf("error getting end date")
 			}
 			to, err := utils.ParseDateWithFormat(aux.(string))
 			if err != nil {
-				return ret, err
+				return ret, values, err
 			}
 			_, offset = to.Zone()
 			to = to.Add(time.Duration(offset) * time.Second)
 			ret = append(ret, fmt.Sprintf(props["from"].Text[0], from.Format("02/01/2006 15:04:05"), to.Format("02/01/2006 15:04:05")))
+			vals = append(vals, from.Format("02/01/2006 15:04:05"))
+			vals = append(vals, to.Format("02/01/2006 15:04:05"))
 		}
 		// Duration
 		if aux, ok = data[props["duration"].Key]; !ok {
-			return ret, fmt.Errorf("error getting duration")
+			return ret, values, fmt.Errorf("error getting duration")
 		}
 		ret = append(ret, fmt.Sprintf(props["duration"].Text[0], aux, props["duration"].Unit))
+		vals = append(vals, aux)
+		values = append(values, vals)
 	}
 
-	return ret, nil
+	return ret, values, nil
 }

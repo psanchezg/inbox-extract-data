@@ -52,15 +52,18 @@ func processMails(configurations config.Configurations) {
 		inrec, _ := json.Marshal(planes)
 		json.Unmarshal(inrec, &serialized)
 		// Human export
-		var ret []string
-		if ret, err = bolt.ExportDataAsStrings[map[string]interface{}](serialized); err != nil {
+		var lines []string
+		var values [][]interface{}
+		if lines, values, err = bolt.ExportData[map[string]interface{}](serialized); err != nil {
 			fmt.Println(err)
 		}
 		for _, output := range process.Outputs {
 			if output.Type == "stdout" {
-				outputs.ConsoleOutput(ret)
+				outputs.ConsoleOutput(lines)
 			} else if output.Type == "file" {
-				outputs.FileOutput(ret, output.Path)
+				outputs.FileOutput(lines, output.Path)
+			} else if output.Type == "sheet" {
+				outputs.SheetsOutput(values, output.Path)
 			}
 		}
 		// Machine export
