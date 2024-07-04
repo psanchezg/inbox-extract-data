@@ -15,7 +15,7 @@ type MmonitUsage struct {
 	Start    time.Time `json:"start"`
 	Stop     time.Time `json:"stop"`
 	Duration float64   `json:"duration"`
-	Minutes  int64     `json:"minutes"`
+	Minutes  float64   `json:"minutes"`
 	Channel  string    `json:"channel"`
 	Client   string    `json:"client"`
 	Encoder  string    `json:"encoder"`

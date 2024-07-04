@@ -49,6 +49,9 @@ dev:
 test:
 	go test -v
 
+clean-token:
+	rm -rf ~/.credentials/google.json
+
 update:
 	go mod tidy
 	go mod vendor

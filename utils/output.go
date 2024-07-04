@@ -41,12 +41,14 @@ func WriteFile(msg *gmail.Message) error {
 	return f.Close()
 }
 
-func ParseDateWithFormat(date string) (time.Time, error) {
+func ParseDateWithFormat(date string, layout ...string) (time.Time, error) {
 	if strings.HasSuffix(date, "Z") {
 		date = date[:len(date)-1] + "+00:00"
 	}
-	layout := "2006-01-02T15:04:05-07:00"
-	return time.Parse(layout, date)
+	if len(layout) == 0 {
+		layout = []string{"2006-01-02T15:04:05-07:00"}
+	}
+	return time.Parse(layout[0], date)
 }
 
 func Round(value any) float64 {

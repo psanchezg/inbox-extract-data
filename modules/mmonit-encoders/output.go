@@ -2,6 +2,7 @@ package mmonitencoders
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 	"time"
 
@@ -21,7 +22,42 @@ func GetAggregateStats[K interfaces.Any](datas []K) MmonitUsageStats {
 	return ret
 }
 
-func ExportData[K interfaces.Any](datas []K) ([]string, [][]interface{}, error) {
+func ExportData[K interfaces.Any](datas map[string][]K) ([]string, [][]interface{}, error) {
+	// Human export
+	var lines []string
+	var values [][]interface{}
+	for key := range datas {
+		data := datas[key]
+		// Export data
+		var partialLines []string
+		var partialValues [][]interface{}
+		var err error
+		if partialLines, partialValues, err = exportData(data); err != nil {
+			fmt.Println(err)
+		}
+		lines = append(lines, partialLines...)
+		if len(values) == 0 {
+			values = append(values, partialValues...)
+		} else {
+			values = append(values, partialValues[1:]...)
+		}
+	}
+	headers := values[0]
+	vals := values[1:]
+	sort.Slice(vals, func(a, b int) bool {
+		timea, err1 := utils.ParseDateWithFormat(vals[a][2].(string), "02/01/2006 15:04:05")
+		timeb, err2 := utils.ParseDateWithFormat(vals[b][2].(string), "02/01/2006 15:04:05")
+		if err1 != nil || err2 != nil {
+			// Manejar errores de parsing (aquí simplemente se considera que la fecha inválida es menor)
+			fmt.Println("Error parsing date:", err1, err2)
+			return err1 != nil
+		}
+		return timea.Before(timeb)
+	})
+	return lines, utils.InsertAtBeginning(vals, headers), nil
+}
+
+func exportData[K interfaces.Any](datas []K) ([]string, [][]interface{}, error) {
 	props := Props
 	// Lines return
 	ret := []string{}

@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/psanchezg/inbox-extract-data/utils"
 	"google.golang.org/api/sheets/v4"
@@ -51,7 +52,8 @@ func SheetsOutput(values [][]interface{}, path string) {
 	ctx := context.Background()
 	srv := utils.ConnectToSheetsService(ctx)
 	// Create spreadsheet
-	spreadsheetId := searchFile(path)
+	aux := strings.Split(path, "|||")
+	spreadsheetId := searchFile(utils.DefaultIfEmpty(aux[0], "inbox-extract-data"))
 	var err error
 	if spreadsheetId != "" {
 		fmt.Printf("Found spreadsheet ID: %s\n", spreadsheetId)
@@ -86,7 +88,7 @@ func SheetsOutput(values [][]interface{}, path string) {
 	}
 
 	// Calcular el rango de escritura
-	rangeStr := calculateRange(values, "Hoja 1")
+	rangeStr := calculateRange(values, utils.DefaultIfEmpty(aux[1], "Hoja 1"))
 
 	rb.Data = append(rb.Data, &sheets.ValueRange{
 		Range:  rangeStr,

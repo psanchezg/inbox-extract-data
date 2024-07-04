@@ -1,26 +1,39 @@
 processes:
-  - name: bolt
-    module: bolt
-    query: from:receipts@bolt.eu after:2024/01/01
+  # - name: bolt
+  #   module: bolt
+  #   query: from:receipts@bolt.eu after:2024/01/01
+  #   outputs:
+  #     - type: stdout
+  #       format: lines
+  #     - type: file
+  #       format: lines
+  #       path: ./dump/bolt.txt
+  #     - type: sheet
+  #       format: csv
+  #       path: Bolt data|||Hoja 1
+
+  - name: mmonit-encoders
+    module: mmonit-encoders
+    query: from:mmonit@aranova.cloud after:2024/05/01 before:2024/06/01
     outputs:
-      - type: stdout
-        format: lines
+      # - type: stdout
+      #   format: lines
       - type: file
         format: lines
-        path: ./dump/bolt.txt
+        path: ./dump/mmonit-2024-05.txt
       - type: sheet
         format: csv
-        path: Bolt data
+        path: Estadísticas codificación|||2024-May
 
   - name: mmonit-encoders
     module: mmonit-encoders
     query: from:mmonit@aranova.cloud after:2024/06/01 before:2024/07/01
     outputs:
-      - type: stdout
-        format: lines
+      # - type: stdout
+      #   format: lines
       - type: file
         format: lines
-        path: ./dump/mmonit.txt
+        path: ./dump/mmonit-2024-06.txt
       - type: sheet
         format: csv
-        path: Estadísticas codificación
+        path: Estadísticas codificación|||2024-Jun

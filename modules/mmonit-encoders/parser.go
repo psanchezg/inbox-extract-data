@@ -133,12 +133,12 @@ func ProcessRawData(msgs []*gmail.Message, currentYear int) (map[string][]Mmonit
 								currentUsage.Stop = alert.Date
 								currentUsage.Channel = simplekey
 								currentUsage.Duration = float64(currentUsage.Stop.Sub(currentUsage.Start).Seconds())
-								currentUsage.Minutes = int64(math.Round(currentUsage.Duration / 60.0))
+								currentUsage.Minutes = float64(math.Round(currentUsage.Duration*100/60.0) / 100)
 								openedUsages[key] = currentUsage
 								usages[simplekey] = append(usages[simplekey], currentUsage)
 								delete(openedUsages, key)
 							} else {
-								fmt.Println("*****************ERROR STOP****************", key, "not found")
+								fmt.Println("*****************ERROR STOP****************", key, "start not found", alert.Date.Format("02/01/2006 15:04:05"))
 							}
 						}
 					}
