@@ -22,14 +22,7 @@
 
 # inbox-extract-data
 
-App "inbox-extract-data" is a Go app to check a GMail inbox to analize Bolt e-scooter usages.
-
-**TODO:**
-
-  - Add more statistics
-  - Get plans and travels over time
-  - Add historical statistics
-  - More test data
+App "inbox-extract-data" is a Go app to check a GMail inbox an analizes messages by modules. It's includes modules to analize Bolt e-scooter usages (in Spain) and M/Monit messages from AV encoders
 
 #  USE
 ## CREDENTIALS:

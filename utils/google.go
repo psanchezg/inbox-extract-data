@@ -10,6 +10,9 @@ import (
 	"os/user"
 	"path/filepath"
 	"slices"
+	"strconv"
+	"strings"
+	"unicode"
 
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -163,4 +166,37 @@ func ColumnIndexToLetter(index int) string {
 		index /= 26
 	}
 	return result
+}
+
+// columnToIndex convierte la letra de la columna en su índice correspondiente
+func ColumnToIndex(column string) int {
+	column = strings.ToUpper(column) // Asegurar que la columna esté en mayúsculas
+	index := 0
+	for i := 0; i < len(column); i++ {
+		index = index*26 + int(column[i]-'A'+1)
+	}
+	return index - 1
+}
+
+// SplitCellReference separa una referencia de celda en sus componentes de columna y fila
+func SplitCellReference(cell string) (string, int) {
+	var column string
+	var rowStr string
+
+	for _, char := range cell {
+		if unicode.IsLetter(char) {
+			column += string(char)
+		} else if unicode.IsDigit(char) {
+			rowStr += string(char)
+		}
+	}
+
+	row, err := strconv.Atoi(rowStr)
+	if err != nil {
+		// Manejar el error según sea necesario
+		fmt.Println("Error al convertir la fila a un número:", err)
+		return "", 0
+	}
+
+	return column, row
 }

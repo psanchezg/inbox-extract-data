@@ -31,7 +31,7 @@ func searchFile(fname string) string {
 }
 
 // calculateRange calcula el rango de escritura en función del tamaño del array de datos y el nombre de la hoja
-func calculateRange(data [][]interface{}, sheetName string) string {
+func calculateRange(data [][]interface{}, sheetName string, startCell string) string {
 	if len(data) == 0 {
 		return ""
 	}
@@ -39,12 +39,18 @@ func calculateRange(data [][]interface{}, sheetName string) string {
 	numRows := len(data)
 	numCols := len(data[0])
 
+	// Calcular inicio
+	startCol, startRow := utils.SplitCellReference(startCell)
+
+	// Calcular la columna inicial
+	startColIndex := utils.ColumnToIndex(startCol)
+
 	// Convertir las columnas a la notación de letras
-	endCol := utils.ColumnIndexToLetter(numCols)
-	endRow := numRows
+	endCol := utils.ColumnIndexToLetter(numCols + startColIndex)
+	endRow := numRows + startRow
 
 	// Crear la cadena de rango en formato A1
-	rangeStr := fmt.Sprintf("%s!A1:%s%d", sheetName, endCol, endRow)
+	rangeStr := fmt.Sprintf("%s!%s:%s%d", sheetName, startCell, endCol, endRow)
 	return rangeStr
 }
 
@@ -53,6 +59,9 @@ func SheetsOutput(values [][]interface{}, path string) {
 	srv := utils.ConnectToSheetsService(ctx)
 	// Create spreadsheet
 	aux := strings.Split(path, "|||")
+	if len(aux) > 3 {
+		values = values[1:]
+	}
 	spreadsheetId := searchFile(utils.DefaultIfEmpty(aux[0], "inbox-extract-data"))
 	var err error
 	if spreadsheetId != "" {
@@ -88,7 +97,7 @@ func SheetsOutput(values [][]interface{}, path string) {
 	}
 
 	// Calcular el rango de escritura
-	rangeStr := calculateRange(values, utils.DefaultIfEmpty(aux[1], "Hoja 1"))
+	rangeStr := calculateRange(values, utils.DefaultIfEmpty(aux[1], "Hoja 1"), utils.DefaultIfEmpty(aux[2], "A1"))
 
 	rb.Data = append(rb.Data, &sheets.ValueRange{
 		Range:  rangeStr,
