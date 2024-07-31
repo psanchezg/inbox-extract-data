@@ -12,28 +12,31 @@ import (
 )
 
 /**
- * Parses url with the given regular expression and returns the
+ * Parses text with the given regular expression and returns the
  * group values defined in the expression.
  *
  */
-func getParams(regEx, url string) (paramsMap []map[string]string) {
+func getParams(regEx, text string) (paramsMap []map[string]string) {
 
 	var compRegEx = regexp.MustCompile(regEx)
-	matches := compRegEx.FindAllStringSubmatch(url, -1)
-	// fmt.Printf("%v", url)
+	matches := compRegEx.FindAllStringSubmatch(text, -1)
+	// fmt.Printf("%v", text)
+	// fmt.Println(matches)
 
 	paramsMap = make([]map[string]string, 0)
 	index := 0
 	for _, match := range matches {
 		paramsMap = append(paramsMap, make(map[string]string))
 		for i, name := range compRegEx.SubexpNames() {
-			if i > 0 && i <= len(match) {
+			if name != "" && i >= 0 && i <= len(match) {
 				paramsMap[index][name] = match[i]
 			}
 		}
 		aux := strings.Split(paramsMap[index]["Channel"], "_")
 		if len(aux) > 2 {
-			paramsMap = append(paramsMap[:index], paramsMap[index+1:]...)
+			if index > 0 {
+				paramsMap = append(paramsMap[:index], paramsMap[index+1:]...)
+			}
 		} else {
 			index++
 		}
@@ -89,7 +92,7 @@ func ProcessRawData(msgs []*gmail.Message, currentYear int) (map[string][]Mmonit
 		body, errbody := utils.GetMsgBody(msg)
 		if errbody == nil {
 			fullparams := getParams(rxbody, body)
-			// fmt.Println(msg.Snippet)
+			// fmt.Println(fullparams)
 			for _, params := range fullparams {
 				if params["Date"] != "" {
 					alert := createMmonitAlert(params, msg.Snippet, body)
