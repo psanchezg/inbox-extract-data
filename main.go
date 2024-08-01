@@ -79,11 +79,11 @@ func processData(configurations config.Configurations) {
 			}
 		}
 		for _, output := range process.Outputs {
-			if output.Type == "stdout" {
+			if output.Type == "stdout" && len(lines) > 0 {
 				outputs.ConsoleOutput(lines)
-			} else if output.Type == "file" {
+			} else if output.Type == "file" && len(lines) > 0 {
 				outputs.FileOutput(lines, output.Path)
-			} else if output.Type == "sheet" {
+			} else if output.Type == "sheet" && len(values) > 0 {
 				outputs.SheetsOutput(values, output.Path)
 			}
 		}

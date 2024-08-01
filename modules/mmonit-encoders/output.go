@@ -42,6 +42,9 @@ func ExportData[K interfaces.Any](datas map[string][]K) ([]string, [][]interface
 			values = append(values, partialValues[1:]...)
 		}
 	}
+	if len(values) == 0 {
+		return lines, values, nil
+	}
 	headers := values[0]
 	vals := values[1:]
 	sort.Slice(vals, func(a, b int) bool {
