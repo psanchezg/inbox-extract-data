@@ -149,8 +149,12 @@ func ProcessRawData(msgs []*gmail.Message, currentYear int) (map[string][]Mmonit
 			}
 		}
 	}
-	fmt.Printf("Primera alerta detectada: %v\n", firstMessage.Format("02-01-2006 15:04:05 MST"))
-	fmt.Printf("Última alerta detectada: %v\n", lastMessage.Format("02-01-2006 15:04:05 MST"))
+	if !firstMessage.IsZero() {
+		fmt.Printf("Primera alerta detectada: %v\n", firstMessage.Format("02-01-2006 15:04:05 MST"))
+	}
+	if !lastMessage.IsZero() {
+		fmt.Printf("Última alerta detectada: %v\n", lastMessage.Format("02-01-2006 15:04:05 MST"))
+	}
 	fmt.Printf("Total número de alertas procesadas: %v\n", len(alerts))
 	return usages, nil
 }
