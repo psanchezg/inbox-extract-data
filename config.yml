@@ -51,15 +51,28 @@ processes:
   #       format: csv
   #       path: Estadísticas codificación|||2024-Jul|||A4|||0
 
+  # - name: mmonit-encoders
+  #   module: mmonit-encoders
+  #   query: from:mmonit@aranova.cloud after:2024/08/01 before:2024/09/01
+  #   outputs:
+  #     # - type: stdout
+  #     #   format: lines
+  #     - type: file
+  #       format: lines
+  #       path: ./dump/mmonit-2024-08.txt
+  #     - type: sheet
+  #       format: csv
+  #       path: Estadísticas codificación|||2024-Ago|||A4|||0
+
   - name: mmonit-encoders
     module: mmonit-encoders
-    query: from:mmonit@aranova.cloud after:2024/08/01 before:2024/09/01
+    query: from:mmonit@aranova.cloud after:2024/09/01 before:2024/10/01
     outputs:
       # - type: stdout
       #   format: lines
       - type: file
         format: lines
-        path: ./dump/mmonit-2024-08.txt
+        path: ./dump/mmonit-2024-09.txt
       - type: sheet
         format: csv
-        path: Estadísticas codificación|||2024-Ago|||A4|||0
+        path: Estadísticas codificación|||2024-Sep|||A4|||0
