@@ -23,7 +23,7 @@ processes:
   #       path: ./dump/mmonit-2024-05.txt
   #     - type: sheet
   #       format: csv
-  #       path: Estadísticas codificación|||2024-May|||A4|||0
+  #       path: Estadísticas codificación 2024|||2024-May|||A4|||0
 
   # - name: mmonit-encoders
   #   module: mmonit-encoders
@@ -36,7 +36,7 @@ processes:
   #       path: ./dump/mmonit-2024-06.txt
   #     - type: sheet
   #       format: csv
-  #       path: Estadísticas codificación|||2024-Jun|||A4|||0
+  #       path: Estadísticas codificación 2024|||2024-Jun|||A4|||0
 
   # - name: mmonit-encoders
   #   module: mmonit-encoders
@@ -49,7 +49,7 @@ processes:
   #       path: ./dump/mmonit-2024-07.txt
   #     - type: sheet
   #       format: csv
-  #       path: Estadísticas codificación|||2024-Jul|||A4|||0
+  #       path: Estadísticas codificación 2024|||2024-Jul|||A4|||0
 
   # - name: mmonit-encoders
   #   module: mmonit-encoders
@@ -62,7 +62,7 @@ processes:
   #       path: ./dump/mmonit-2024-08.txt
   #     - type: sheet
   #       format: csv
-  #       path: Estadísticas codificación|||2024-Ago|||A4|||0
+  #       path: Estadísticas codificación 2024|||2024-Ago|||A4|||0
 
   # - name: mmonit-encoders
   #   module: mmonit-encoders
@@ -75,7 +75,7 @@ processes:
   #       path: ./dump/mmonit-2024-09.txt
   #     - type: sheet
   #       format: csv
-  #       path: Estadísticas codificación|||2024-Sep|||A4|||0
+  #       path: Estadísticas codificación 2024|||2024-Sep|||A4|||0
 
   # - name: mmonit-encoders
   #   module: mmonit-encoders
@@ -88,17 +88,30 @@ processes:
   #       path: ./dump/mmonit-2024-10.txt
   #     - type: sheet
   #       format: csv
-  #       path: Estadísticas codificación|||2024-Oct|||A4|||0
+  #       path: Estadísticas codificación 2024|||2024-Oct|||A4|||0
+
+  # - name: mmonit-encoders
+  #   module: mmonit-encoders
+  #   query: from:mmonit@aranova.cloud after:2024/11/01 before:2024/12/01
+  #   outputs:
+  #     # - type: stdout
+  #     #   format: lines
+  #     - type: file
+  #       format: lines
+  #       path: ./dump/mmonit-2024-11.txt
+  #     - type: sheet
+  #       format: csv
+  #       path: Estadísticas codificación 2024|||2024-Nov|||A4|||0
 
   - name: mmonit-encoders
     module: mmonit-encoders
-    query: from:mmonit@aranova.cloud after:2024/11/01 before:2024/12/01
+    query: from:mmonit@aranova.cloud after:2024/12/01 before:2025/01/01
     outputs:
       # - type: stdout
       #   format: lines
       - type: file
         format: lines
-        path: ./dump/mmonit-2024-11.txt
+        path: ./dump/mmonit-2024-12.txt
       - type: sheet
         format: csv
-        path: Estadísticas codificación|||2024-Nov|||A4|||0
+        path: Estadísticas codificación 2024|||2024-Dic|||A4|||0
