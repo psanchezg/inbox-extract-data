@@ -129,15 +129,41 @@ processes:
   #       format: csv
   #       path: Estadísticas codificación 2025|||2025-Ene|||A4|||0
 
+  # - name: mmonit-encoders
+  #   module: mmonit-encoders
+  #   query: from:mmonit@aranova.cloud after:2025/02/01 before:2025/03/01
+  #   outputs:
+  #     # - type: stdout
+  #     #   format: lines
+  #     - type: file
+  #       format: lines
+  #       path: ./dump/mmonit-2025-02.txt
+  #     - type: sheet
+  #       format: csv
+  #       path: Estadísticas codificación 2025|||2025-Feb|||A4|||0
+
+  # - name: mmonit-encoders
+  #   module: mmonit-encoders
+  #   query: from:mmonit@aranova.cloud after:2025/03/01 before:2025/04/01
+  #   outputs:
+  #     # - type: stdout
+  #     #   format: lines
+  #     - type: file
+  #       format: lines
+  #       path: ./dump/mmonit-2025-03.txt
+  #     - type: sheet
+  #       format: csv
+  #       path: Estadísticas codificación 2025|||2025-Mar|||A4|||0
+
   - name: mmonit-encoders
     module: mmonit-encoders
-    query: from:mmonit@aranova.cloud after:2025/02/01 before:2025/03/01
+    query: from:mmonit@aranova.cloud after:2025/04/01 before:2025/05/01
     outputs:
       # - type: stdout
       #   format: lines
       - type: file
         format: lines
-        path: ./dump/mmonit-2025-02.txt
+        path: ./dump/mmonit-2025-04.txt
       - type: sheet
         format: csv
-        path: Estadísticas codificación 2025|||2025-Feb|||A4|||0
+        path: Estadísticas codificación 2025|||2025-Abr|||A4|||0
